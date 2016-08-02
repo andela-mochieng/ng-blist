@@ -1,0 +1,57 @@
+.main {
+    background-image: url("../../static/img/wood.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-cover;
+    background-size: cover;
+    width:100vw;
+    height:100vh;
+
+}
+md-card-title {
+    font-weight: bolder;
+    text-align: center;
+    font-size: xx-large;
+}
+
+md-card {
+    width: 30vw;
+    height: 75vh;
+    opacity: 0.9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+md-input {
+    margin: 10px;
+    width: 80%;
+    margin-left : 10px;
+    float:left;
+    padding-top: 20px;
+    display:block;
+}
+
+button {
+  position: center;
+  margin: 50px;
+  width: 60%;
+}
+
+ p {
+    text-align: center;
+ }
+
+ #login-card {
+    margin: 0 auto;
+    width: 20vw;
+    height: 50vh;
+
+ }
+
+
+
+

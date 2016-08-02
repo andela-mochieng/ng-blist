@@ -1,0 +1,38 @@
+<md-sidenav-layout fullscreen>
+<md-sidenav #sidenav>
+<h1> Love</h1>
+</md-sidenav>
+    <md-toolbar color="accent">
+    <button md-icon-button (click)="sidenav.open()">
+      <md-icon>menu</md-icon>
+    </button>
+        <h1>
+          {{title}}
+        </h1>
+    <button md-fab (click)="formShowing=!formShowing">
+      <md-icon>+</md-icon>
+    </button>
+    </md-toolbar >
+        <md-grid-list cols="4">
+            <md-grid-tile [colspan]="3" [rowspan]="2" [style.background]="'blue'" >
+                  <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                          <div class="flipper">
+                              <div class="front">
+                                  <!-- front content -->
+                                  <md-card [style.background]="'lightblue'">
+                                      <md-card-content> fghdjh</md-card-content>
+                                  </md-card>
+                              </div>
+                              <div class="back">
+                                  <!-- back content -->
+                                  <md-card [style.background]="'lightblue'">
+                                      <md-card-content> <h1>bhjvb</h1></md-card-content>
+                                  </md-card>
+
+                              </div>
+                          </div>
+                      </div>
+             </md-grid-tile>
+    </md-grid-list>
+</md-sidenav-layout>
+

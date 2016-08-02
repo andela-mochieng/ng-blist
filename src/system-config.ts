@@ -7,11 +7,56 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  '@angular2-material': 'vendor/@angular2-material',
+  'angular2-jwt':'vendor/angular2-jwt',
+  'ng2-toastr':'vendor/ng2-toastr',
+  'ng2-bs3-modal': 'vendor/ng2-bs3-modal'
 };
 
 /** User packages configuration. */
 const packages: any = {
+  '@angular2-material/core': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'core.js'
+  },
+  '@angular2-material/checkbox': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'checkbox.js'
+  },
+
+  'angular2-jwt': {
+    main: 'angular2-jwt.js'
+  },
+  'ng2-toastr': {
+    main: 'ng2-toastr.min.js',
+
+  },
+  'ng2-bs3-modal': {
+    main: 'ng2-bs3-modal.js"'
+  },
+
 };
+
+const materialPkgs:string[] = [
+ 'core',
+ 'toolbar',
+ 'icon',
+ 'button',
+ 'sidenav',
+ 'list',
+ 'card',
+ 'input',
+ 'radio',
+ 'grid-list',
+
+];
+
+materialPkgs.forEach((pkg) => {
+ packages[`@angular2-material/${pkg}`] = {main: `${pkg}.js`};
+});
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /***********************************************************************************************
@@ -27,13 +72,20 @@ const barrels: string[] = [
   '@angular/router',
   '@angular/platform-browser',
   '@angular/platform-browser-dynamic',
-
+  '@angular/router-deprecated',
+  'ng2-toastr',
+  'ng2-bs3-modal',
   // Thirdparty barrels.
   'rxjs',
 
   // App specific barrels.
   'app',
   'app/shared',
+  'app/auth/signin',
+  'app/auth/index',
+  'app/index',
+  'app/bucketlist',
+  'app/auth/register',
   /** @cli-barrel */
 ];
 

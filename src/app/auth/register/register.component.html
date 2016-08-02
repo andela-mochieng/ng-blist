@@ -1,0 +1,38 @@
+<md-grid-list class="main" cols="4">
+        <md-card [style.background]="'white'">
+            <div [hidden]="register_success" class="alert alert-info fade in">
+                <a style="cursor: pointer;" (click)="closealert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> Create an account
+            </div>
+            <md-card-title>Sign Up</md-card-title>
+            <md-card-content>
+                <form id="loginform" class="form-horizontal" role="form" *ngIf="active" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                    <div [hidden]="correct" id="loginalert" class="alert alert-danger">
+                        <div *ngFor='let error of arrayOfKeys'>
+                            <p>{{userobj[error]}}</p>
+                        </div>
+                    </div>
+                    <md-input id="login-username" type="username"  name="username" value="" placeholder="Name" required [(ngModel)]="model.username" ngControl="email" #username="ngModel">
+                        <span md-prefix><i class="material-icons">account_circle</i></span>
+                    </md-input>
+                    <div [hidden]="username.valid || username.pristine" class="alert alert-danger"></div>
+                    <md-input id="login-email" type="email" name="email" value="" placeholder="email@gmail.com" required [(ngModel)]="model.email" ngControl="email" #email="ngModel">
+                        <span md-prefix><i class="material-icons">email</i></span>
+                    </md-input>
+                    <div [hidden]="email.valid || email.pristine" class="alert alert-danger"></div>
+                    <md-input id="login-password" type="password" name="password" placeholder="Password" required [(ngModel)]="model.password" ngControl="password" #password="ngModel">
+                        <span md-prefix><i class="material-icons">lock</i></span>
+                    </md-input>
+                    <div [hidden]="password.valid || password.pristine" class="alert alert-danger"></div>
+                    <md-input type="password" name="confirm_password" placeholder="confirm password" required [(ngModel)]="model.password" ngControl="password" #confirm_password="ngModel">
+                        <span md-prefix><i class="material-icons">lock</i></span>
+                    </md-input>
+                    <div [hidden]="confirm_password.valid || confirm_password.pristine" class="alert alert-danger"></div>
+                    <!-- <div class="alert alert-danger" [class.match]="validateConfirm(password, confirm_password)">
+                        Passwords do not match
+                    </div> -->
+                   <button md-raised-button [style.background]="'#c8e6c9'"> Sign up</button>
+                </form>
+                 <p>Click here to <a class="noselect" style="cursor: pointer;" (click)="showLogin()">Log in</a></p>
+            </md-card-content>
+        </md-card>
+</md-grid-list>

@@ -1,0 +1,32 @@
+<md-grid-list  class="main" cols="4">
+            <md-card id="login-card" [style.background]="'white'">
+            <div [hidden]="register_success" class="alert alert-info fade in">
+                <a style="cursor: pointer;" (click)="closealert()" class="close" data-dismiss="alert"
+                   aria-label="close">&times;</a> Login to access your account
+            </div>
+            <md-card-title>Log in!</md-card-title>
+            <md-card-content>
+            <form id="loginform" class="form-horizontal" role="form" *ngIf="active" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+                <div [hidden]="correct" id="loginalert" class="alert alert-danger">
+                    <div *ngFor='let error of arrayOfKeys'>
+                        <p>{{userobj[error]}}</p>
+                    </div>
+                </div>
+                <md-input id="login-username" type="email" name="username" value="" placeholder="Email@gmail.com" required [(ngModel)]="model.email" ngControl="email" #email="ngModel">
+                     <span md-prefix><i class="material-icons">account_circle</i></span>
+                </md-input>
+                <div [hidden]="email.valid || email.pristine" class="alert alert-danger"></div>
+                <md-input id="login-password" type="password" name="password" placeholder="Password" required [(ngModel)]="model.password" ngControl="password" #password="ngModel">
+                    <span md-prefix><i class="material-icons">lock</i></span>
+                </md-input>
+                <div [hidden]="password.valid || password.pristine" class="alert alert-danger"></div>
+              <button md-raised-button [style.background]="'#c8e6c9'" [disabled]="!loginForm.form.valid"> Log in</button>
+            </form>
+            <p>Click here to <a class="noselect" style="cursor: pointer;" (click)="showSignUp()">Sign Up </a></p>
+            </md-card-content>
+        </md-card>
+</md-grid-list>
+
+
+
+
