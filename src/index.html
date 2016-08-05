@@ -14,7 +14,6 @@
       rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
-
 </head>
 <body>
   <app-root>Loading...</app-root>
@@ -23,11 +22,15 @@
 
     {{#each scripts.polyfills}}
     <script src="{{.}}"></script>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.angularjs.org/tools/system.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
-    <script src="vendor/ng2-toastr/ng2-toastr.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-    <script src="vendor/ng2-bs3-modal/ng2-bs3-modal.js"></script>
+    <script src="vendor/ng2-toastr/bundles/ng2-toastr.js"></script>
+    <script src="vendor/ng2-bs3-modal/bundles/ng2-bs3-modal.js"></script>
+    <script src="https://code.angularjs.org/tools/system.js"></script>
 
     {{/each}}
     <script>

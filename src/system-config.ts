@@ -10,7 +10,7 @@ const map: any = {
   '@angular2-material': 'vendor/@angular2-material',
   'angular2-jwt':'vendor/angular2-jwt',
   'ng2-toastr':'vendor/ng2-toastr',
-  'ng2-bs3-modal': 'vendor/ng2-bs3-modal'
+  'ng2-bs3-modal': 'vendor/ng2-bs3-modal',
 };
 
 /** User packages configuration. */
@@ -34,8 +34,9 @@ const packages: any = {
 
   },
   'ng2-bs3-modal': {
-    main: 'ng2-bs3-modal.js"'
+    main: 'ng2-bs3-modal.js'
   },
+
 
 };
 
@@ -75,6 +76,7 @@ const barrels: string[] = [
   '@angular/router-deprecated',
   'ng2-toastr',
   'ng2-bs3-modal',
+
   // Thirdparty barrels.
   'rxjs',
 
