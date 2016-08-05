@@ -1,38 +1,88 @@
+<toaster-container></toaster-container>
 <md-sidenav-layout fullscreen>
-<md-sidenav #sidenav>
-<h1> Love</h1>
-</md-sidenav>
+    <md-sidenav #sidenav>
+        <h1> Love</h1>
+    </md-sidenav>
     <md-toolbar color="accent">
-    <button md-icon-button (click)="sidenav.open()">
-      <md-icon>menu</md-icon>
-    </button>
-        <h1>
-          {{title}}
-        </h1>
-    <button md-fab (click)="formShowing=!formShowing">
-      <md-icon>+</md-icon>
-    </button>
-    </md-toolbar >
-        <md-grid-list cols="4">
-            <md-grid-tile [colspan]="3" [rowspan]="2" [style.background]="'blue'" >
-                  <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
-                          <div class="flipper">
-                              <div class="front">
-                                  <!-- front content -->
-                                  <md-card [style.background]="'lightblue'">
-                                      <md-card-content> fghdjh</md-card-content>
-                                  </md-card>
-                              </div>
-                              <div class="back">
-                                  <!-- back content -->
-                                  <md-card [style.background]="'lightblue'">
-                                      <md-card-content> <h1>bhjvb</h1></md-card-content>
-                                  </md-card>
-
-                              </div>
-                          </div>
-                      </div>
-             </md-grid-tile>
+        <button md-icon-button (click)="sidenav.open()">
+            <md-icon title="View profile">menu</md-icon>
+        </button>
+        <form id="search">
+            <md-input type="text" name="search" placeholder="Search..">
+                <span md-suffix> <i #searchicon [style.cursor]="'auto'" (click)="entersearch( filterinput, searchicon, closeicon)" class="material-icons md-24 md-light">search</i></span>
+            </md-input>
+        </form>
+        <button title="Create a bucket list" md-fab (click)="open()">
+            <i class="material-icons md-24 blue">add</i>
+        </button>
+    </md-toolbar>
+    <md-grid-list cols="4">
+        <md-grid-tile [colspan]="3" [rowspan]="2" [style.background]="'white'">
+            <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                <!--  <div class="flipper"> -->
+                <div class="front">
+                    <div class="no-buckets" *ngIf="nobuckets">
+                        <h4>There are no bucketlists to display. Click <a style="cursor: pointer;" (click)="open()">here</a> to create one</h4>
+                    </div>
+                    <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #myModal>
+                        <modal-header [show-close]="true">
+                            <h4 class="modal-title">Enter Bucket Name</h4>
+                        </modal-header>
+                        <modal-body>
+                            <input #bucketitemid type="text" (keyup.enter)="bucketname=bucketitemid.value; modal.close();" class="form-control no-border input-lg" autofocus placeholder="Bucket Name">
+                        </modal-body>
+                        <modal-footer>
+                            <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                            <button type="button" style="width: 80px;" class="btn btn-primary" (click)="bucketname=bucketitemid.value; modal.close();">Save</button>
+                        </modal-footer>
+                    </modal>
+                    <md-card [style.background]="'white'">
+                        <md-card-title *ngIf="selectedBucket">{{selectedBucket.name}}>
+                            <i (click)="editModeBucket(editbucketid,bname,editbucketid.value)" aria-hidden="true">edit mode</i>
+                            <div class="editactions">
+                                <div (click)="deletetrigger()" [style.cursor]="'pointer'" class="content">
+                                    <i style="color: #dae3ef;" class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                                    <span>Delete</span>
+                                </div>
+                            </div>
+                        </md-card-title>
+                        <md-card-content>
+                            <div id="myDIV" class="header">
+                                <h2>My Bucket Item</h2>
+                                <md-input type="text" id="myInput" placeholder="B.Name...">
+                                    <span md-suffix><span onclick="newElement()" class="addBtn"><i class="material-icons">playlist_add</i></span></span>
+                                </md-input>
+                            </div>
+                            <ul id="myUL">
+                                <li>Hit the gym</li>
+                                <li class="checked">Pay bills</li>
+                                <li>Organize office</li>
+                            </ul>
+                        </md-card-content>
+                    </md-card>
+                </div>
+                <div class="back">
+                    <!-- back content -->
+                    <md-card [style.background]="'white'">
+                        <md-card-content>
+                            <div id="myDIV" class="header">
+                                <h2>My Bucket Item</h2>
+                                <md-input type="text" id="myInput" placeholder="B.Name...">
+                                    <span onclick="newElement()" class="addBtn"><span md-suffix><i class="material-icons">playlist_add</i></span></span>
+                                </md-input>
+                            </div>
+                            <ul id="myUL">
+                                <li class="checked">Pay bills</li>
+                                <li>Meet George</li>
+                                <li>Buy eggs</li>
+                                <li>Read a book</li>
+                                <li>Organize office</li>
+                            </ul>
+                        </md-card-content>
+                    </md-card>
+                </div>
+                <!--  </div> -->
+            </div>
+        </md-grid-tile>
     </md-grid-list>
 </md-sidenav-layout>
-
