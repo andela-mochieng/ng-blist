@@ -74,7 +74,7 @@ export class RegisterComponent {
       "&username=" + username + "&confirm_password=" + confirm_password;
     var headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    this.http.post('https://bucketlist.herokuapp.com/api/register/', params, {
+    this.http.post('https://bucketlist.herokuapp.com/api/v.1/api-token-auth/', params, {
       headers: headers
     })
       .map(res => res.json())
@@ -99,6 +99,7 @@ export class RegisterComponent {
       value: true
     })
   }
+
 
   // Emit event to signup
   showLogin() {

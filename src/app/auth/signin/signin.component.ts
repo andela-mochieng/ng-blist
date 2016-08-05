@@ -56,7 +56,7 @@ export class SigninComponent implements OnInit {
     var params = "username=" + email + "&password=" + password;
     var headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    this.http.post('https://bucketlist.heroku/api/v.1/login/', params, {
+    this.http.post('https://buckelist.herokuapp.com/api/v.1/api-token-auth/', params, {
       headers: headers
     })
         .map(res => res.json())
@@ -85,6 +85,7 @@ export class SigninComponent implements OnInit {
   }
     // Execuit after failed authentication
     logError(err: any) {
+    console.log('gfcmm')
     this.correct = false;
     this.userobj = JSON.parse(err["_body"]);
     this.arrayOfKeys = Object.keys(this.userobj);
