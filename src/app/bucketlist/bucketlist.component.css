@@ -4,9 +4,10 @@
 }
 
 md-toolbar {
-	background-color: rgba(0, 0, 0);
+	background-color: #33DAFF;
 	position: static;
 }
+
 [md-fab] {
   position: absolute;
   right: 5%;
@@ -15,52 +16,9 @@ md-toolbar {
   background-color: black;
 }
 
-md-sidenav {
-  width: 200px;
 
-}
-
-/* entire container, keeps perspective */
-.flip-container {
-	perspective: 1000px;
-}
-	/* flip the pane when hovered */
-	.flip-container:hover .flipper, .flip-container.hover .flipper {
-		transform: rotateY(180deg);
-	}
-
-.flip-container, .front, .back {
-	width: 320px;
-	height: 480px;
-}
-
-/* flip speed goes here */
-.flipper {
-	transition: 0.6s;
-	transform-style: preserve-3d;
-
-	position: relative;
-}
-
-/* hide back of pane during swap */
-.front, .back {
-	backface-visibility: hidden;
-
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-/* front pane, placed above back */
-.front {
-	z-index: 2;
-	/* for firefox 31 */
-	transform: rotateY(0deg);
-}
-
-/* back, initially hidden pane */
-.back {
-	transform: rotateY(180deg);
+#count {
+  float: left;
 }
 
 /* Include the padding and border in an element's total width and height */
@@ -68,102 +26,7 @@ md-sidenav {
     box-sizing: border-box;
 }
 
-/* Remove margins and padding from the list */
-ul {
-    margin: 0;
-    padding: 0;
-}
 
-/* Style the list items */
-ul li {
-    cursor: pointer;
-    position: relative;
-    padding: 5px 8px 8px 20px;
-    background: #eee;
-    font-size: 14px;
-    transition: 0.2s;
-    list-style-type: none;
-
-    /* make the list items unselectable */
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* Set all odd list items to a different color (zebra-stripes) */
-ul li:nth-child(odd) {
-    background: #f9f9f9;
-}
-
-/* Darker background-color on hover */
-ul li:hover {
-    background: #ddd;
-}
-
-/* When clicked on, add a background color and strike out text */
-ul li.checked {
-    background: #888;
-    color: #fff;
-    text-decoration: line-through;
-}
-
-/* Add a "checked" mark when clicked on */
-ul li.checked::before {
-    content: '';
-    position: absolute;
-    border-color: #fff;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 10px;
-    left: 16px;
-    transform: rotate(45deg);
-    height: 15px;
-    width: 7px;
-}
-
-/* Style the close button */
-.close {
-    position: absolute;
-    right: 0;
-    top: 0;
-    padding: 12px 16px 12px 16px
-}
-
-.close:hover {
-    background-color: #f44336;
-    color: white;
-}
-
-/* Style the header */
-.header {
-    font-style: italic;
-    color: black;
-    text-align: center;
-}
-
-/* Clear floats after the header */
-.header:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-
-/* Style the "Add" button */
-.addBtn {
-    width: 25%;
-    color: #555;
-    float: left;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.addBtn:hover {
-    background-color: #bbb;
-}
 md-input {
     border: none;
     width: 75%;
@@ -171,3 +34,91 @@ md-input {
     font-size: 16px;
 }
 
+md-card {
+  box-sizing: border-box;
+  margin: 50px 40px;
+  width: 400px;
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+}
+#info {
+    float: right;
+}
+/*fab*/
+#my_ul.active > li > a {
+  opacity: 1;
+}
+
+
+.btn-secondary {
+  opacity: 0;
+}
+
+.btn-floating {
+  cursor: pointer;
+  display: block;
+  text-align: center;
+  border-radius: 50%;
+  height: 45px;
+  width: 45px;
+  line-height: 40px;
+  color: white;
+
+
+}
+.fixed-action-btn {
+  display:inline-table;
+
+}
+
+
+.fixed-action-btn i {
+  vertical-align: middle;
+}
+
+
+.red    {
+  background-color: red;
+  position: relative;
+
+}
+
+.green  {
+  background-color: green;
+  position: relative;
+
+
+}
+
+.blue   {
+    background-color: black;
+    position: absolute;
+    top: 1px;
+    right: 4px;
+
+
+}
+.fixed-action-btn {
+  position: absolute;
+  top: 5px;
+  display:inline-table;
+  right: 0;
+
+}
+
+
+ul {
+  list-style-type: none;
+  text-align: right;
+
+}
+
+li {
+  display:inline-table;
+  margin-right: 56px;
+  margin-left: -48px;
+
+}

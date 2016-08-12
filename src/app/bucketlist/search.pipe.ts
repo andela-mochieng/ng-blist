@@ -1,12 +1,19 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Bucketlist } from './blist';
 
 @Pipe({
-  name: 'search'
+  name: 'searchFilter',
+  pure: false
 })
 export class SearchPipe implements PipeTransform {
-
-  transform(value: any, args?: any): any {
-    return null;
+// Returns bucketlist matching query
+  transform(bucketlist: Bucketlist[], args: any): any {
+      if (bucketlist == null) {
+          return null;
+      }
+      console.log(args)
+    return bucketlist.filter((item: Bucketlist) => new RegExp(args).test(item.list_name));
   }
 
 }
+

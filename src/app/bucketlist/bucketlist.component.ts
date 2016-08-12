@@ -2,12 +2,10 @@ import {Component, ElementRef, Input, Output, EventEmitter, OnInit, ViewContaine
 import {MdToolbar} from '@angular2-material/toolbar';
 import {MdButton} from '@angular2-material/button';
 import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput} from '@angular2-material/input';
 import {MdCheckbox} from '@angular2-material/checkbox';
 import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {MD_GRID_LIST_DIRECTIVES} from '@angular2-material/grid-list';
 import {MdRadioButton, MdRadioGroup} from '@angular2-material/radio';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
@@ -22,7 +20,7 @@ import { Bucketlist } from './blist';
 import { BucketItem } from './blitems';
 import { CompleteTasksPipe } from './complete-tasks.pipe';
 import { SearchPipe } from './search.pipe';
-
+import { UncompleteTasksPipe } from './uncomplete-tasks.pipe';
 
 
 
@@ -33,9 +31,7 @@ import { SearchPipe } from './search.pipe';
   styleUrls: ['bucketlist.component.css'],
   directives: [
     MD_SIDENAV_DIRECTIVES,
-    MD_LIST_DIRECTIVES,
     MD_CARD_DIRECTIVES,
-    MD_GRID_LIST_DIRECTIVES,
     MdToolbar,
     MdButton,
     MdInput,
@@ -47,12 +43,12 @@ import { SearchPipe } from './search.pipe';
     MODAL_DIRECTIVES
   ],
   providers: [MdIconRegistry, HTTP_PROVIDERS, MODAL_DIRECTIVES, ToastsManager, BucketlistService ],
-  pipes: [CompleteTasksPipe, SearchPipe ],
+  pipes: [CompleteTasksPipe, SearchPipe, UncompleteTasksPipe],
 })
 export class BucketlistComponent implements OnInit {
   openPage: string;
   editing = false;
-  nobuckets = true;
+  nobuckets = false;
   noitems = false;
   currentTitle: string;
   visible: boolean = false;
@@ -60,6 +56,7 @@ export class BucketlistComponent implements OnInit {
   index: number = 0;
   bucketname: string;
   private bctlst: Bucketlist[];
+
 
   @Input() bucketlist: Bucketlist[];
   @Input() bucketitem: BucketItem[];
@@ -72,7 +69,6 @@ export class BucketlistComponent implements OnInit {
   @Input() public selectedBucket: Bucketlist;
   @Input() public selectdeleteItem: BucketItem;
   @Input() public selectedCurrentText: string;
-
 
   constructor(private el: ElementRef, private _router: Router, private bucketService: BucketlistService, public toastr: ToastsManager) {
     this.openPage = "signin";
@@ -91,12 +87,6 @@ export class BucketlistComponent implements OnInit {
   @ViewChild('bucketitemid')
   bitemid: any;
 
-  // Gets user name
-  getUser() {
-    var jwtHelper = new JwtHelper();
-    var token = localStorage.getItem('auth_token');
-    return jwtHelper.decodeToken(token)
-  }
 
   // Opens modal
   open() {
@@ -104,6 +94,13 @@ export class BucketlistComponent implements OnInit {
     this.bitemid.nativeElement.value = "";
 
   }
+  // Gets user eg. name object .
+  getUser() {
+    var jwtHelper = new JwtHelper();
+    var token = localStorage.getItem('auth_token');
+    return jwtHelper.decodeToken(token)
+  }
+
 
   // Execute on modal closed
   onClose(result: ModalResult) {
@@ -115,12 +112,11 @@ export class BucketlistComponent implements OnInit {
     this.querystring = value;
   }
 
-  // Shows search bar when intent to search is triggered
-  entersearch(searchinput: HTMLInputElement, searchicon: HTMLInputElement, closeicon: HTMLInputElement) {
+  // Shows search bar when user intents to search
+  entersearch(searchinput: HTMLInputElement, searchicon: HTMLInputElement) {
     searchinput.style.display = "block";
     searchinput.focus();
     searchicon.style.display = "none";
-    closeicon.style.display = "block";
   }
 
    // Execute on successful bucketlist  creation
@@ -148,15 +144,33 @@ export class BucketlistComponent implements OnInit {
 
   // Refresh  bucketlists once a save is made
   onSaveItem(data: any) {
-    console.log(data);
     this.fetchbuckets();
   }
+
+  // Executed when user selects a bucketlist
+  onSelect(bucketitem: Bucketlist, s: number) {
+    this.visible = false;
+    this.itemcount = Object.keys(bucketitem.items).length;
+    if (this.itemcount > 0) {
+      this.noitems = false;
+    } else {
+      this.noitems = true;
+    }
+    this.selectedBucket = bucketitem;
+    this.index = s;
+    console.log('index')
+    console.log(this.index)
+    console.log(this.selectedBucket);
+  }
+
 
 
   // Executed when an error occurs on Api call
   onComplete(data: any) {
-    console.log(data);
     this.bucketlist = data;
+    console.log('item cray')
+    console.log(data)
+    console.log(this.bucketlist[this.index])
     var num = Object.keys(data).length;
     if (num > 0) {
       this.nobuckets = false;
@@ -166,6 +180,7 @@ export class BucketlistComponent implements OnInit {
         this.noitems = false;
       } else {
         this.noitems = true;
+
       }
     } else {
       this.nobuckets = true;
@@ -181,9 +196,11 @@ export class BucketlistComponent implements OnInit {
     }
     if (err['status'] == 403) {
       console.log(err['_body']);
-      this._router.navigate(['bucket']);
+      console.log('crayz')
+      this._router.navigate(['index']);
     }
   }
+
   // If user is autheticated allow them to edit their bucketlists. Get their email
   // and username Set the the search/querystring none
    ngOnInit() {
@@ -211,7 +228,7 @@ export class BucketlistComponent implements OnInit {
     element.style.display = "none";
     labelitem.style.display = "block";
     if (updatedText.length > 0) {
-      bucketitem.name = updatedText;
+      bucketitem.item_name = updatedText;
       if (this.selectedCurrentText != updatedText) {
         this.updateItem(bucketitem, bucketitem.done);
       }
@@ -222,8 +239,8 @@ export class BucketlistComponent implements OnInit {
   }
 
   // Calls service to update a bucket
-  updateBucket(bucket: Bucketlist, name: string) {
-    this.bucketService.updateBucket(name, bucket.id).subscribe(
+  updateBucket(bucket: Bucketlist, list_name: string) {
+    this.bucketService.updateBucket(list_name, bucket.id).subscribe(
       data => this.onUpdateComplete(data),
       err => this.logError(err),
       () => console.log('Authentication Complete')
@@ -232,17 +249,24 @@ export class BucketlistComponent implements OnInit {
 
   // Commits an edit to bucket list
   commitEditBucketList(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement, bucket: Bucketlist) {
+    console.log('shit')
     this.editMode = false;
+    console.log(element)
     element.style.display = "none";
+    console.log(bucket)
+    console.log(labelitem)
     labelitem.style.display = "block";
+    console.log('before')
     if (updatedText.length > 0) {
-      bucket.name = updatedText;
+      bucket.list_name = updatedText;
       this.selectedBucket = bucket;
       if (this.selectedCurrentText != updatedText) {
+        console.log('if')
         this.updateBucket(bucket, updatedText);
       }
     } else {
-      this.toastr.error('The bucketlist name cannot be blank', 'Oops!');
+      console.log('else')
+      this.toastr.error('The bucketlist list_name cannot be blank', 'Oops!');
     }
 
   }
@@ -262,7 +286,9 @@ export class BucketlistComponent implements OnInit {
   // Shows interface for editing bucket list
 
   editModeBucket(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
-    console.log(element);
+    console.log('jvc')
+    console.log(labelitem)
+    console.log('selectedCurrentText');
     element.style.display = "block";
     element.focus();
     this.selectedCurrentText = selectedCurrentText;
@@ -300,7 +326,7 @@ export class BucketlistComponent implements OnInit {
 
   // Calls service to update bucketitem
   updateItem(item: BucketItem, done: boolean) {
-    this.bucketService.updateItem(item.name, this.selectedBucket.id, item.id, done).subscribe(
+    this.bucketService.updateItem(item.item_name, this.selectedBucket.id, item.id, done).subscribe(
       data => this.onUpdateComplete(data),
       err => this.logError(err),
       () => console.log('Complete')
@@ -355,19 +381,6 @@ export class BucketlistComponent implements OnInit {
     this.updateItem(bucketitem, bucketitem.done);
   }
 
-  // Executed when user selects a bucketlist
-  onSelect(bucketitem: Bucketlist, i: number) {
-    this.visible = false;
-    this.itemcount = Object.keys(bucketitem.items).length;
-    if (this.itemcount > 0) {
-      this.noitems = false;
-    } else {
-      this.noitems = true;
-    }
-    this.selectedBucket = bucketitem;
-    this.index = i;
-    console.log(this.selectedBucket);
-  }
 
 
   // Displays completed items label
@@ -401,13 +414,5 @@ export class BucketlistComponent implements OnInit {
 
   }
 
-
-
-
-
-
-
-
-
-
 }
+

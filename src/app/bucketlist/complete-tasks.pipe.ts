@@ -1,13 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
+import { BucketItem } from './blitems';
 
 @Pipe({
-  name: 'completeTasks'
+  name: 'completeTasks',
+  pure: false
 })
+
 export class CompleteTasksPipe implements PipeTransform {
 
-  transform(value: any, args?: any): any {
-    return null;
+  // Displays only the done items
+  transform(allitems: BucketItem[]) {
+    return allitems.filter(item => item.done == true);
   }
-
 }

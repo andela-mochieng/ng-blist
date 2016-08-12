@@ -46,9 +46,13 @@ button {
  }
 
  #login-card {
-    margin: 0 auto;
     width: 20vw;
     height: 50vh;
+    opacity: 0.9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
  }
 

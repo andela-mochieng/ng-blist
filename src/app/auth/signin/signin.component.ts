@@ -85,7 +85,6 @@ export class SigninComponent implements OnInit {
   }
     // Execuit after failed authentication
     logError(err: any) {
-    console.log('gfcmm')
     this.correct = false;
     this.userobj = JSON.parse(err["_body"]);
     this.arrayOfKeys = Object.keys(this.userobj);
