@@ -1,4 +1,4 @@
-<!doctype html>
+<!Doctype html>
 <html>
 
 <head>
@@ -11,6 +11,8 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -29,12 +31,22 @@
     <script src="vendor/ng2-bs3-modal/bundles/ng2-bs3-modal.js"></script>
     <script src="https://code.angularjs.org/tools/system.js"></script>
 
+
+
     {{/each}}
     <script>
     System.import('system-config.js').then(function() {
         System.import('main');
     }).catch(console.error.bind(console));
     </script>
+    <script>
+    console.log('in')
+    function flip() {
+        console.log('inin')
+        $('.card').toggleClass('flipped');
+        console.log($('.front'))
+    }
+</script>
 </body>
 
 </html>

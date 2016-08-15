@@ -40,9 +40,9 @@ import { UncompleteTasksPipe } from './uncomplete-tasks.pipe';
     MdRadioButton,
     MdIcon,
     RegisterComponent,
-    MODAL_DIRECTIVES
+    MODAL_DIRECTIVES,
   ],
-  providers: [MdIconRegistry, HTTP_PROVIDERS, MODAL_DIRECTIVES, ToastsManager, BucketlistService ],
+  providers: [MdIconRegistry, HTTP_PROVIDERS, MODAL_DIRECTIVES, ToastsManager , BucketlistService ],
   pipes: [CompleteTasksPipe, SearchPipe, UncompleteTasksPipe],
 })
 export class BucketlistComponent implements OnInit {
@@ -70,13 +70,16 @@ export class BucketlistComponent implements OnInit {
   @Input() public selectdeleteItem: BucketItem;
   @Input() public selectedCurrentText: string;
 
-  constructor(private el: ElementRef, private _router: Router, private bucketService: BucketlistService, public toastr: ToastsManager) {
+  constructor(private el: ElementRef, private _router: Router, private bucketService: BucketlistService, public toastr: ToastsManager  ) {
     this.openPage = "signin";
 
   }
 
   @ViewChild('myModal')
   modal: ModalComponent;
+
+  @ViewChild('editModal')
+  editmodal: ModalComponent;
 
   @ViewChild('modalconfirm')
   confirmmodal: ModalComponent;
@@ -87,6 +90,9 @@ export class BucketlistComponent implements OnInit {
   @ViewChild('bucketitemid')
   bitemid: any;
 
+  @ViewChild('editbucketid')
+  blistid: any;
+
 
   // Opens modal
   open() {
@@ -94,6 +100,17 @@ export class BucketlistComponent implements OnInit {
     this.bitemid.nativeElement.value = "";
 
   }
+
+  // Opens modal
+  open_edit() {
+    console.log('mad')
+    this.editmodal.open();
+    this.blistid.nativeElement.value = "";
+
+  }
+
+
+
   // Gets user eg. name object .
   getUser() {
     var jwtHelper = new JwtHelper();
@@ -158,9 +175,6 @@ export class BucketlistComponent implements OnInit {
     }
     this.selectedBucket = bucketitem;
     this.index = s;
-    console.log('index')
-    console.log(this.index)
-    console.log(this.selectedBucket);
   }
 
 
@@ -168,13 +182,10 @@ export class BucketlistComponent implements OnInit {
   // Executed when an error occurs on Api call
   onComplete(data: any) {
     this.bucketlist = data;
-    console.log('item cray')
-    console.log(data)
-    console.log(this.bucketlist[this.index])
     var num = Object.keys(data).length;
     if (num > 0) {
       this.nobuckets = false;
-      this.selectedBucket = this.bucketlist[this.index];
+      this.selectedBucket = data.results[this.index];
       this.itemcount = Object.keys(this.selectedBucket.items).length;
       if (this.itemcount > 0) {
         this.noitems = false;
@@ -191,13 +202,15 @@ export class BucketlistComponent implements OnInit {
 
   // Executed when an error occurs on Api call
   logError(err: any) {
+    console.log('log error')
+    console.log(err)
     if (String(err['_body']).indexOf('unique') > 0) {
       this.toastr.error("Already exists");
     }
     if (err['status'] == 403) {
       console.log(err['_body']);
-      console.log('crayz')
-      this._router.navigate(['index']);
+      console.log('crayz log error')
+      this._router.navigate(['']);
     }
   }
 
@@ -211,9 +224,10 @@ export class BucketlistComponent implements OnInit {
       this.email = this.getUser()['email'];
       this.querystring = "";
     } else {
-      this._router.navigate(['bucket']);
+      this._router.navigate(['']);
     }
   }
+
   // Dismisses editing interface
   cancelEdit(element: HTMLInputElement, labelitem: HTMLInputElement, bucket: Bucketlist) {
     this.editMode = false;
@@ -249,14 +263,9 @@ export class BucketlistComponent implements OnInit {
 
   // Commits an edit to bucket list
   commitEditBucketList(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement, bucket: Bucketlist) {
-    console.log('shit')
     this.editMode = false;
-    console.log(element)
     element.style.display = "none";
-    console.log(bucket)
-    console.log(labelitem)
     labelitem.style.display = "block";
-    console.log('before')
     if (updatedText.length > 0) {
       bucket.list_name = updatedText;
       this.selectedBucket = bucket;
@@ -265,7 +274,7 @@ export class BucketlistComponent implements OnInit {
         this.updateBucket(bucket, updatedText);
       }
     } else {
-      console.log('else')
+      console.log('else blank')
       this.toastr.error('The bucketlist list_name cannot be blank', 'Oops!');
     }
 
@@ -273,7 +282,6 @@ export class BucketlistComponent implements OnInit {
 
   // Shows interface for editing bucket item
   enterEditMode(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
-    console.log(element);
     element.style.display = "block";
     element.focus();
     this.selectedCurrentText = selectedCurrentText;
@@ -286,9 +294,6 @@ export class BucketlistComponent implements OnInit {
   // Shows interface for editing bucket list
 
   editModeBucket(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
-    console.log('jvc')
-    console.log(labelitem)
-    console.log('selectedCurrentText');
     element.style.display = "block";
     element.focus();
     this.selectedCurrentText = selectedCurrentText;
@@ -302,6 +307,7 @@ export class BucketlistComponent implements OnInit {
   deletetrigger() {
     this.confirmmodal.open();
   }
+
   deleteitemtrigger(selectdeleteItem: BucketItem) {
     this.selectdeleteItem = selectdeleteItem
     this.confirmmodalitem.open();
@@ -320,7 +326,7 @@ export class BucketlistComponent implements OnInit {
     this.bucketService.deleteBucket(this.selectedBucket.id).subscribe(
       data => this.onDeleteBucket(),
       err => this.logError(err),
-      () => console.log('Complete')
+      () => console.log('Complete delete')
     );
   }
 
@@ -329,7 +335,7 @@ export class BucketlistComponent implements OnInit {
     this.bucketService.updateItem(item.item_name, this.selectedBucket.id, item.id, done).subscribe(
       data => this.onUpdateComplete(data),
       err => this.logError(err),
-      () => console.log('Complete')
+      () => console.log('Complete update')
     );
   }
 
@@ -356,7 +362,7 @@ export class BucketlistComponent implements OnInit {
   // Navigates user to login page
   logOut() {
     localStorage.removeItem('auth_token');
-    this._router.navigate(['/']);
+    this._router.navigate(['signin']);
   }
 
 
@@ -376,6 +382,7 @@ export class BucketlistComponent implements OnInit {
     bucketitem.done = !bucketitem.done;
     this.updateItem(bucketitem, bucketitem.done);
   }
+
   toggle_done(bucketitem: BucketItem) {
     bucketitem.done = !bucketitem.done;
     this.updateItem(bucketitem, bucketitem.done);

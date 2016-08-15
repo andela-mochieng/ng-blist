@@ -11,7 +11,7 @@ export class SearchPipe implements PipeTransform {
       if (bucketlist == null) {
           return null;
       }
-      console.log(args)
+      console.log('search', args)
     return bucketlist.filter((item: Bucketlist) => new RegExp(args).test(item.list_name));
   }
 

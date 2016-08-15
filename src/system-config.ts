@@ -34,8 +34,10 @@ const packages: any = {
 
   },
   'ng2-bs3-modal': {
-    main: 'ng2-bs3-modal.js'
+    main: 'ng2-bs3-modal.min.js',
+
   },
+
 
 
 };
@@ -76,6 +78,8 @@ const barrels: string[] = [
   '@angular/router-deprecated',
   'ng2-toastr',
   'ng2-bs3-modal',
+  'jquery',
+
 
   // Thirdparty barrels.
   'rxjs',

@@ -34,11 +34,6 @@ md-input {
     font-size: 16px;
 }
 
-md-card {
-  box-sizing: border-box;
-  margin: 50px 40px;
-  width: 400px;
-}
 
 .container {
   display: flex;
@@ -62,9 +57,8 @@ md-card {
   display: block;
   text-align: center;
   border-radius: 50%;
-  height: 45px;
-  width: 45px;
-  line-height: 40px;
+  height: 35px;
+  width: 35px;
   color: white;
 
 
@@ -80,11 +74,6 @@ md-card {
 }
 
 
-.red    {
-  background-color: red;
-  position: relative;
-
-}
 
 .green  {
   background-color: green;
@@ -93,7 +82,7 @@ md-card {
 
 }
 
-.blue   {
+.black  {
     background-color: black;
     position: absolute;
     top: 1px;
@@ -113,12 +102,61 @@ md-card {
 ul {
   list-style-type: none;
   text-align: right;
+  margin
 
 }
 
 li {
   display:inline-table;
-  margin-right: 56px;
+  margin-right: 41px;
   margin-left: -48px;
+
+}
+
+#flipbtn {
+  float: right;
+  margin-top: 40px;
+}
+
+/*flip*/
+.card {
+    -webkit-transition: -webkit-transform 1s;
+    -moz-transition: -moz-transform 1s;
+    -o-transition: -o-transform 1s;
+    transition: transform 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 50%;
+}
+.front, .back, .fixed-action-btn {
+    display: block;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.front {
+  position: relative;
+}
+
+.back {
+    transform: rotateY( 180deg );
+}
+.card.flipped {
+    -webkit-transform: rotateY( 180deg );
+    -moz-transform: rotateY( 180deg );
+    -o-transform: rotateY( 180deg );
+    transform: rotateY( 180deg );
+}
+
+
+.card {
+    box-sizing: border-box;
+    margin: 50px 40px;
+    width: 400px;
+    height: 150px;
 
 }
