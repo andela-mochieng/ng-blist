@@ -1,12 +1,7 @@
 import {Component, ElementRef, Input, Output, EventEmitter, OnInit, ViewContainerRef, ViewChild, AfterViewInit} from '@angular/core';
 import {MdToolbar} from '@angular2-material/toolbar';
-import {MdButton} from '@angular2-material/button';
-import {MD_SIDENAV_DIRECTIVES} from '@angular2-material/sidenav';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput} from '@angular2-material/input';
-import {MdCheckbox} from '@angular2-material/checkbox';
-import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {MdRadioButton, MdRadioGroup} from '@angular2-material/radio';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 import { MODAL_DIRECTIVES, ModalComponent, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -30,19 +25,13 @@ import { UncompleteTasksPipe } from './uncomplete-tasks.pipe';
   templateUrl: 'bucketlist.component.html',
   styleUrls: ['bucketlist.component.css'],
   directives: [
-    MD_SIDENAV_DIRECTIVES,
     MD_CARD_DIRECTIVES,
     MdToolbar,
-    MdButton,
     MdInput,
-    MdCheckbox,
-    MdRadioGroup,
-    MdRadioButton,
-    MdIcon,
     RegisterComponent,
     MODAL_DIRECTIVES,
   ],
-  providers: [MdIconRegistry, HTTP_PROVIDERS, MODAL_DIRECTIVES, ToastsManager , BucketlistService ],
+  providers: [ HTTP_PROVIDERS, MODAL_DIRECTIVES, ToastsManager , BucketlistService ],
   pipes: [CompleteTasksPipe, SearchPipe, UncompleteTasksPipe],
 })
 export class BucketlistComponent implements OnInit {
@@ -161,6 +150,7 @@ export class BucketlistComponent implements OnInit {
 
   // Refresh  bucketlists once a save is made
   onSaveItem(data: any) {
+    console.log('fetch', data)
     this.fetchbuckets();
   }
 
@@ -274,7 +264,6 @@ export class BucketlistComponent implements OnInit {
         this.updateBucket(bucket, updatedText);
       }
     } else {
-      console.log('else blank')
       this.toastr.error('The bucketlist list_name cannot be blank', 'Oops!');
     }
 
@@ -282,6 +271,8 @@ export class BucketlistComponent implements OnInit {
 
   // Shows interface for editing bucket item
   enterEditMode(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
+    console.log('sct')
+    console.log(selectedCurrentText)
     element.style.display = "block";
     element.focus();
     this.selectedCurrentText = selectedCurrentText;
@@ -332,6 +323,8 @@ export class BucketlistComponent implements OnInit {
 
   // Calls service to update bucketitem
   updateItem(item: BucketItem, done: boolean) {
+    console.log('update', item)
+    console.log(item.item_name)
     this.bucketService.updateItem(item.item_name, this.selectedBucket.id, item.id, done).subscribe(
       data => this.onUpdateComplete(data),
       err => this.logError(err),
@@ -379,6 +372,8 @@ export class BucketlistComponent implements OnInit {
 
   // Toggles between completed and uncompleted items
   toggle(bucketitem: BucketItem) {
+    console.log('bitem')
+    console.log(bucketitem)
     bucketitem.done = !bucketitem.done;
     this.updateItem(bucketitem, bucketitem.done);
   }
@@ -394,9 +389,9 @@ export class BucketlistComponent implements OnInit {
   showCompleted(element: HTMLInputElement) {
     this.visible = !this.visible;
     if (this.visible) {
-      element.innerHTML = "HIDE ITEMS COMPLETED";
+      element.innerHTML = "Hide completed items";
     } else {
-      element.innerHTML = "SHOW ITEMS COMPLETED";
+      element.innerHTML = "View completed items";
     }
   }
 

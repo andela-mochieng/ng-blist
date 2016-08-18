@@ -20,11 +20,7 @@ const packages: any = {
     defaultExtension: 'js',
     main: 'core.js'
   },
-  '@angular2-material/checkbox': {
-    format: 'cjs',
-    defaultExtension: 'js',
-    main: 'checkbox.js'
-  },
+
 
   'angular2-jwt': {
     main: 'angular2-jwt.js'
@@ -47,12 +43,11 @@ const materialPkgs:string[] = [
  'toolbar',
  'icon',
  'button',
- 'sidenav',
  'list',
  'card',
  'input',
- 'radio',
- 'grid-list',
+
+
 
 ];
 

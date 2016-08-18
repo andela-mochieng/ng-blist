@@ -14,6 +14,7 @@ md-toolbar {
   top: 34px;
   z-index: 0;
   background-color: black;
+  border-radius: 50%;
 }
 
 
@@ -27,17 +28,27 @@ md-toolbar {
 }
 
 
-md-input {
+#input-search {
     border: none;
     width: 75%;
     padding: 10px;
     font-size: 16px;
+    align-items: center;
+    margin-left: 100px;
 }
+ md-card-title {
+  padding: 10px 10px;
+ }
 
+ md-card-content {
+  padding-left: 5px;
+ }
 
-.container {
+.container{
   display: flex;
   flex-flow: row wrap;
+  perspective: 800px;
+
 }
 #info {
     float: right;
@@ -45,11 +56,13 @@ md-input {
 /*fab*/
 #my_ul.active > li > a {
   opacity: 1;
+
 }
 
 
 .btn-secondary {
   opacity: 0;
+
 }
 
 .btn-floating {
@@ -71,13 +84,15 @@ md-input {
 
 .fixed-action-btn i {
   vertical-align: middle;
+
 }
 
 
 
 .green  {
   background-color: green;
-  position: relative;
+  position: absolute;
+  right: 25px;
 
 
 }
@@ -85,67 +100,111 @@ md-input {
 .black  {
     background-color: black;
     position: absolute;
-    top: 1px;
-    right: 4px;
-
+    top: 2px;
+    left: 20px;
 
 }
+
 .fixed-action-btn {
   position: absolute;
-  top: 5px;
   display:inline-table;
-  right: 0;
+  right: 28px;
+
 
 }
-
 
 ul {
   list-style-type: none;
+}
+
+#my_ul ul {
   text-align: right;
-  margin
+
 
 }
 
-li {
+#my_ul ul li {
   display:inline-table;
-  margin-right: 41px;
-  margin-left: -48px;
+  /*margin-right: 41px;
+  margin-left: -48px;*/
 
 }
-
-#flipbtn {
+.input-item {
   float: right;
+  margin-left: 100px;
+}
+
+.btn-flip {
+  margin-left: 120px;
   margin-top: 40px;
 }
 
+.back-flip {
+    align-items: center;
+    float: right;
+}
+#item {
+      width: 250px;
+      font-size: 14px;
+      float: left;
+      padding-top: 5px;
+
+}
+#item i {
+  margin-top: -15px;
+}
+
+.back ul li {
+  padding-top: 10px;
+}
+
+.checkbox {
+  float: left;
+
+}
+label .material-icons {
+    font-size:12px;
+    margin-left: 250px;
+}
 /*flip*/
 .card {
-    -webkit-transition: -webkit-transform 1s;
-    -moz-transition: -moz-transform 1s;
-    -o-transition: -o-transform 1s;
-    transition: transform 1s;
+  padding: 0 !important;
+   box-sizing: border-box;
+    margin: 50px;
+    width: 400px;
+    height: 150px;
+    position: relative;
+    -webkit-transition: -webkit-transform 0.5s;
+    -moz-transition: -moz-transform 0.5s;
+    -o-transition: -o-transform 0.5s;
+    transition: transform 0.5s;
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     -o-transform-style: preserve-3d;
     transform-style: preserve-3d;
     -webkit-transform-origin: 50% 50%;
 }
-.front, .back, .fixed-action-btn {
-    display: block;
-    -webkit-backface-visibility: hidden;
+
+
+.face {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     -o-backface-visibility: hidden;
     backface-visibility: hidden;
-}
 
-.front {
-  position: relative;
 }
-
-.back {
+.back  {
+    background-color: white;
+    -webkit-transform: rotateY( 180deg );
+    -moz-transform: rotateY( 180deg );
+    -o-transform: rotateY( 180deg );
     transform: rotateY( 180deg );
+
 }
-.card.flipped {
+.flipped {
     -webkit-transform: rotateY( 180deg );
     -moz-transform: rotateY( 180deg );
     -o-transform: rotateY( 180deg );
@@ -153,10 +212,4 @@ li {
 }
 
 
-.card {
-    box-sizing: border-box;
-    margin: 50px 40px;
-    width: 400px;
-    height: 150px;
 
-}

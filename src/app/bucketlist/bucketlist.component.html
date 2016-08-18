@@ -1,20 +1,20 @@
 <toaster-container toaster-options="
     {'time-out':{ 'toast-warning': 100, 'toast-error': 100 } }">
 </toaster-container>
-<md-sidenav-layout fullscreen>
+
     <md-toolbar>
         <div class="container">
             <form id="search">
-                <md-input #bucketsearch type="text" name="search" placeholder="Search..">
+                <md-input id="input-search" #bucketsearch type="text" name="search" placeholder="Search..">
                     <span md-suffix> <i #searchicon [style.cursor]="'auto'" (click)="entersearch( filterinput, searchicon)" class="material-icons md-24 md-light">search</i></span>
                 </md-input>
             </form>
         </div>
         <button title="Create a bucket list" md-fab (click)="open()">
-            <i class="material-icons md-24">add</i>
+            <i style="color:white; padding-top: 5px;" class="material-icons md-24">add</i>
         </button>
     </md-toolbar>
-    <div class="container">
+    <div class="container ">
         <div class="no-buckets" *ngIf="nobuckets">
             <h4>There are no bucketlists to display. Click <a style="cursor: pointer;" (click)="open()">here</a> to create one</h4>
         </div>
@@ -32,49 +32,103 @@
         </modal>
         <div class="container">
             <div class="row">
-                <md-card  onclick="flip()" #bucketselect class="col-md-3 card" *ngFor=" let bucket of bucketlist?.results | searchFilter:bucketsearch.value; let s = index " [class.selected]="bucket===selectedBucket " (click)="onSelect(bucket,s)">
-                    <div class="front">
-                    <md-card-title id="edbucket"> {{bucket.list_name}}
-                        <div class="fixed-action-btn">
-                            <ul id="my_ul">
-                                <li>
-                                    <a class="btn-secondary btn-floating green" (click)="open_edit()">
-                                        <i class="large material-icons">mode_edit</i>
-                                    </a>
-                                </li>
-                            </ul>
-                            <a id="btn-main" class="btn-primary btn-floating btn-large black"><i class="material-icons">view_headline</i></a>
-                        </div>
-                    </md-card-title>
-                    <md-card-content>
-                        <span md-prefix>Date created: {{ bucket.date_created | date: 'mediumDate' }} </span>
-                        <span *ngIf="bucket.date_updated " md-suffix>Date modified: {{ bucket.date_updated | date: 'mediumDate' }} </span>
-                        <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #editModal>
-                            <modal-header [show-close]="true">
-                                <h4 class="modal-title">Update Bucket Name</h4>
-                            </modal-header>
-                            <modal-body>
-                                <div *ngFor=" let bucket of bucketlist?.results | searchFilter:bucketsearch.value; let s = index " [class.selected]="bucket===selectedBucket " (click)="onSelect(bucket,s) ">
-                                    <div #bname class="view">
-                                        <div *ngIf="bucket === selectedBucket">
-                                            <input class="editbucket" [value]="bucket.list_name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" class="form-control no-border input-lg" autofocus placeholder="Update Bucket Name">
+                <md-card #bucketselect class="col-md-3 card" *ngFor=" let bucket of bucketlist?.results | searchFilter:bucketsearch.value; let s = index " [class.selected]="bucket===selectedBucket " (click)="onSelect(bucket,s)">
+                    <div class="front face">
+                        <md-card-title id="edbucket"> {{bucket.list_name}}
+                            <div class="fixed-action-btn">
+                                <ul id="my_ul">
+                                    <li>
+                                        <a class="btn-secondary btn-floating green" (click)="open_edit()">
+                                            <i class="large material-icons">mode_edit</i>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <a id="btn-main" class="btn-primary btn-floating btn-large black"><i class="material-icons">view_headline</i></a>
+                            </div>
+                        </md-card-title>
+                        <md-card-content>
+                            <span md-prefix>Date created: {{ bucket.date_created | date: 'mediumDate' }} </span>
+                            <span *ngIf="bucket.date_updated " md-suffix>Date modified: {{ bucket.date_updated | date: 'mediumDate' }} </span>
+                            <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #editModal>
+                                <modal-header [show-close]="true">
+                                    <h4 class="modal-title">Update Bucket Name</h4>
+                                </modal-header>
+                                <modal-body>
+                                    <div *ngFor=" let bucket of bucketlist?.results | searchFilter:bucketsearch.value; let s = index " [class.selected]="bucket===selectedBucket " (click)="onSelect(bucket,s) ">
+                                        <div #bname class="view">
+                                            <div *ngIf="bucket === selectedBucket">
+                                                <input class="editbucket" [value]="bucket.list_name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" class="form-control no-border input-lg" autofocus placeholder="Update Bucket Name">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </modal-body>
-                            <modal-footer>
-                                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()"><i class="material-icons">cancel</i></button>
-                                <button type="button" class="btn btn-danger" (click)="deletetrigger()"><i class="large material-icons">delete</i></button>
-                                <button type="submit" class="btn btn-primary" (click)="bucketname=bucketlistid.value; editmodal.close();"><i class="material-icons">update</i></button>
-                            </modal-footer>
-                        </modal>
-                        <button id="flipbtn" type="button" onclick="flip()" *ngIf="bucket === selectedBucket">Items {{ bucket.items.length }} </button>
-                    </md-card-content>
+                                </modal-body>
+                                <modal-footer>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()"><i class="material-icons">cancel</i></button>
+                                    <button type="button" class="btn btn-danger" (click)="deletetrigger()"><i class="large material-icons">delete</i></button>
+                                    <button type="submit" class="btn btn-primary" (click)="bucketname=bucketlistid.value; editmodal.close();"><i class="material-icons">update</i></button>
+                                </modal-footer>
+                            </modal>
+                            <button class="btn-flip" id="item{{bucket.id}}" type="button">Items {{ bucket.items.length }} </button>
+                        </md-card-content>
                     </div>
-                    <div class="back">2
+                    <div class="back face">
+                        <ul>
+                            <li>
+                                <input class="form-control" id="item" [disabled]="nobuckets" #item (keyup.enter)="addItem(item.value,item)" type="text " placeholder="Add a bucket Item" autofocus><span md-suffix><i (click)="addItem(item.value,item)" style="color: black;cursor: pointer;" class="material-icons">add</i></span>
+                            </li>
+                        </ul>
+                        <div class="row">
+                            <div class="items">
+                                <ul class=" bucket-items " *ngIf="selectedBucket">
+                                    <li *ngFor="let bucketitem of selectedBucket.items | uncompleteTasks: selectedBucket.items" [class.editing]="editMode">
+                                        <div  #viewitem class="view" [class.completed]="bucketitem.done">
+                                           <!-- <input class="toggle checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done" indeterminate="true"> -->
+                                            <label #labelitem (dblclick)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)">{{bucketitem.item_name}}<i (click)="enterEditMode(todoItemInput,  labelitem,todoItemInput.value)"  style="cursor: pointer;" class="material-icons">edit</i><i (click)="deleteitemtrigger(bucketitem)" class="material-icons">delete_forever</i></label>
+                                            <modal [animation]="animationsEnabled" (onClose)="deleteItem()" #modalconfirmitem>
+                                                <modal-header [show-close]="true">
+                                                    <h4 class="modal-title">Confirm Delete</h4>
+                                                </modal-header>
+                                                <modal-body>
+                                                    You are about to delete an item?
+                                                </modal-body>
+                                                <modal-footer>
+                                                    <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                                                    <button type="button" style="width: 80px;" class="btn btn-primary" (click)="confirmmodalitem.close();">YES</button>
+                                                </modal-footer>
+                                            </modal>
+                                        </div>
+                                        <!-- <md-input class="edit" [value]="bucketitem.name" #todoItemInput (keyup.enter)="commitEdit(todoItemInput.value,todoItemInput, labelitem)" (keyup.escape)="cancelEdit(todoItemInput, labelitem, selectedBucket)" (blur)="commitEdit(todoItemInput.value,todoItemInput, labelitem,bucketitem)"></md-input> -->
+                                    </li>
+                                </ul>
+                                <div class="no-items" *ngIf="noitems">
+                                    There are no items to display. Add a new one.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div *ngIf="!noitems" (click)="showCompleted(toggleitems)" class="panel panel-default" id="showcompleted">
+                            <div class="panel-body">
+                                <p #toggleitems class="noselect">View completed items</p>
+                            </div>
+                        </div> -->
+                        <div [hidden]="!visible">
+                            <ul class="completed-items " *ngIf="selectedBucket ">
+                                <li *ngFor="let bucketitem of selectedBucket.items | completeTasks: selectedBucket.items">
+                                    <div *ngIf="bucketitem.done" class="row view-done" [class.completed]="bucketitem.done">
+                                        <div class="col-md-1 col-xs-2">
+                                            <input class="toggle-done" type="checkbox" [checked]="bucketitem.done" (click)="toggle_done(bucketitem)">
+                                        </div>
+                                        <div>
+                                            <label (dblclick)="enterEditMode(todoItemInput)">{{bucketitem.name}}</label>
+                                            <p>{{bucketitem.date_updated}} by {{username}}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <button class="btn-flip back-flip" type="button">back</button>
                     </div>
                 </md-card>
             </div>
         </div>
     </div>
-</md-sidenav-layout>
+

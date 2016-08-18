@@ -1,13 +1,7 @@
 import {Component, ElementRef, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import { Http, Headers, HTTP_PROVIDERS } from '@angular/http';
-import {MdButton} from '@angular2-material/button';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput} from '@angular2-material/input';
-import {MdCheckbox} from '@angular2-material/checkbox';
-import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {MD_GRID_LIST_DIRECTIVES} from '@angular2-material/grid-list';
-import {MdRadioButton, MdRadioGroup} from '@angular2-material/radio';
 import { ShowService } from '../show.service';
 import { User }  from '../user';
 
@@ -17,17 +11,11 @@ import { User }  from '../user';
   templateUrl: 'register.component.html',
   styleUrls: ['register.component.css'],
   directives: [
-    MD_LIST_DIRECTIVES,
     MD_CARD_DIRECTIVES,
-    MD_GRID_LIST_DIRECTIVES,
-    MdButton,
     MdInput,
-    MdCheckbox,
-    MdRadioGroup,
-    MdRadioButton,
-    MdIcon,
+
   ],
-  providers: [MdIconRegistry, ShowService, Http, HTTP_PROVIDERS],
+  providers: [ShowService, Http, HTTP_PROVIDERS],
 })
 
 export class RegisterComponent {

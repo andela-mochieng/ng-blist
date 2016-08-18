@@ -1,16 +1,12 @@
 import { Http, Headers, HTTP_PROVIDERS } from '@angular/http';
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {MdButton} from '@angular2-material/button';
 import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput} from '@angular2-material/input';
-import {MdCheckbox} from '@angular2-material/checkbox';
-import {MdIcon, MdIconRegistry} from '@angular2-material/icon';
-import {MD_GRID_LIST_DIRECTIVES} from '@angular2-material/grid-list';
-import {MdRadioButton, MdRadioGroup} from '@angular2-material/radio';
 import { Router } from '@angular/router';
 import { User }  from '../user';
 import { ShowService } from '../show.service';
+
 
 @Component({
   moduleId: module.id,
@@ -18,17 +14,11 @@ import { ShowService } from '../show.service';
   templateUrl: 'signin.component.html',
   styleUrls: ['../register/register.component.css'],
   directives: [
-    MD_LIST_DIRECTIVES,
     MD_CARD_DIRECTIVES,
-    MD_GRID_LIST_DIRECTIVES,
-    MdButton,
+    MD_LIST_DIRECTIVES,
     MdInput,
-    MdCheckbox,
-    MdRadioGroup,
-    MdRadioButton,
-    MdIcon
   ],
-  providers: [MdIconRegistry, Http, HTTP_PROVIDERS, ShowService],
+  providers: [Http, HTTP_PROVIDERS, ShowService],
 })
 
 export class SigninComponent implements OnInit {

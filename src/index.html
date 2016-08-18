@@ -23,9 +23,7 @@
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://code.angularjs.org/tools/system.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
     <script src="vendor/ng2-toastr/bundles/ng2-toastr.js"></script>
     <script src="vendor/ng2-bs3-modal/bundles/ng2-bs3-modal.js"></script>
@@ -40,13 +38,12 @@
     }).catch(console.error.bind(console));
     </script>
     <script>
-    console.log('in')
-    function flip() {
-        console.log('inin')
-        $('.card').toggleClass('flipped');
-        console.log($('.front'))
-    }
-</script>
+    $(document).on('click', '.btn-flip', function() {
+        $(this).closest('.card').toggleClass('flipped');
+
+    });
+    </script>
+
 </body>
 
 </html>
