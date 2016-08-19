@@ -14,7 +14,7 @@ module.exports = function(defaults) {
       'zone.js/dist/**/*.+(js|js.map)',
       'es6-shim/es6-shim.js',
       'reflect-metadata/**/*.+(ts|js|js.map)',
-      'rxjs/**/*.+(js|js.map)',
+      'rxjs/**/**',
       '@angular/**/*.+(js|js.map)',
       '@angular2-material/**/*.js',
       'angular2-jwt/**/*.+(js|js.map)',
