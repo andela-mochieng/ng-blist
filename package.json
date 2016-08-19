@@ -8,7 +8,7 @@
 },
   "scripts": {
     "start": "ng build -prod && ng serve -prod",
-    "postinstall": "typings install",
+    "postinstall": "npm install -g typings && typings install",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",
