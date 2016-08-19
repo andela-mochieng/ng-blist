@@ -173,16 +173,20 @@ ul {
 .checkbox {
     width: 20px;
     height: 20px;
-    padding-left: 150px;
+
+}
+#first {
+   width: 1px;
 }
 .td {
-    align-content: center;
-    padding: 3px !important;
+   /* align-content: center;*/
+    /*padding: 3px !important;*/
 }
 .table-scrollable  {
       height: 150px;
       overflow: auto;
       margin-left: 30px;
+      background-color: rgba(32, 219, 230, 0);;
 }
 .td i {
       font-size: 14px;
@@ -192,9 +196,7 @@ ul {
 .tab-pane  {
     padding-right: 30px
 }
-/*.fixed {
-    position: fixed;
-}*/
+
 
 /*flip*/
 .card {

@@ -21,7 +21,6 @@ module.exports = function(defaults) {
       'ng2-toastr/**/*.+(js|js.map)',
       'ng2-bs3-modal/**/*.+(js|js.map)',
       'ng2-bootstrap/**/*.+(js|js.map)',
-
     ]
   });
 };

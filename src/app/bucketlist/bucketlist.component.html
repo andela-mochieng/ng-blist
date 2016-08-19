@@ -74,13 +74,6 @@
                     <ul>
                         <li>
                             <input #labelitem class="form-control" id="item" [disabled]="nobuckets" #item (keyup.enter)="addItem(item.value,item)" type="text " placeholder="Add a bucket Item" autofocus><span md-suffix><i (click)="addItem(item.value,item)" style="color: black;cursor: pointer;" class="material-icons">add</i></span>
-                            <button id="0" style="float:right; margin: -10px 5px" class="mdl-button mdl-js-button mdl-button--icon">
-                                <a href="#"><i class="material-icons">filter_list</i></a>
-                            </button>
-                            <!-- <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="0">
-                                <li class="mdl-menu__item"  data-toggle="modal" data-target="#">Complete tasks</li>
-                                <li class="mdl-menu__item"  data-toggle="modal" data-target="">todo tasks</li>
-                            </ul> -->
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -96,11 +89,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let bucketitem of selectedBucket.items | uncompleteTasks: selectedBucket.items" [class.editing]="editMode">
+                                        <tr  *ngFor="let bucketitem of selectedBucket.items | uncompleteTasks: selectedBucket.items" [class.editing]="editMode">
                                             <td #viewitem class="view td" [class.completed]="bucketitem.done">
                                                 <input type="checkbox" class="toggle checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
                                             </td>
-                                            <td class="td">{{bucketitem.item_name}}</td>
+                                            <td style="width: 50%;"class="td">{{bucketitem.item_name}}</td>
+
                                             <td class="td"><i (click)="updatetrigger(enterEditMode(ItemInput,  labelitem, ItemInput.value))" style="cursor: pointer;" class="material-icons">edit</i></td>
                                             <modal [animation]="animationsEnabled" (onClose)="updateItem()" #edititemModal>
                                                 <modal-header [show-close]="true">
