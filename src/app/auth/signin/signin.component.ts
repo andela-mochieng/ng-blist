@@ -1,6 +1,5 @@
 import { Http, Headers, HTTP_PROVIDERS } from '@angular/http';
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {MD_LIST_DIRECTIVES} from '@angular2-material/list';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput} from '@angular2-material/input';
 import { Router } from '@angular/router';
@@ -15,7 +14,6 @@ import { ShowService } from '../show.service';
   styleUrls: ['../register/register.component.css'],
   directives: [
     MD_CARD_DIRECTIVES,
-    MD_LIST_DIRECTIVES,
     MdInput,
   ],
   providers: [Http, HTTP_PROVIDERS, ShowService],
