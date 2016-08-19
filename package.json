@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "angular-cli": {},
+  "repository": {
+    "url": "https://github.com/andela-mochieng/ng-blist.git"
+},
   "scripts": {
     "start": "ng serve",
     "postinstall": "typings install",

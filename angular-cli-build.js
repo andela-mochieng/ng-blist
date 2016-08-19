@@ -19,8 +19,8 @@ module.exports = function(defaults) {
       '@angular2-material/**/*.js',
       'angular2-jwt/**/*.+(js|js.map)',
       'ng2-toastr/**/*.+(js|js.map)',
-      'ng2-bs3-modal/**/*.+(js|js.map)',
-      'ng2-bootstrap/**/*.+(js|js.map)',
+      'ng2-bs3-modal/**/**',
+      'ng2-bootstrap/**/*',
     ]
   });
 };
