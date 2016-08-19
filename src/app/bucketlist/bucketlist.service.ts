@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, HTTP_PROVIDERS } from '@angular/http';
-import { Observable } from 'rxjs/rx';
+import {Observable} from 'rxjs/observable';
 import { Bucketlist } from './blist';
-import 'rxjs/Rx';
+import * as Rx from 'rxjs/rx';
 import 'rxjs/add/operator/map';
 
 
