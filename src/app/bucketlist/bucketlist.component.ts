@@ -70,6 +70,9 @@ export class BucketlistComponent implements OnInit {
   @ViewChild('editModal')
   editmodal: ModalComponent;
 
+  @ViewChild('edititemModal')
+  edititemmodal: ModalComponent;
+
   @ViewChild('modalconfirm')
   confirmmodal: ModalComponent;
 
@@ -228,6 +231,9 @@ export class BucketlistComponent implements OnInit {
 
   // Commits an edit to bucketitem
   commitEdit(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement, bucketitem: BucketItem) {
+    console.log(updatedText)
+    console.log('update')
+    console.log(bucketitem)
     this.editMode = false;
     element.style.display = "none";
     labelitem.style.display = "block";
@@ -272,11 +278,12 @@ export class BucketlistComponent implements OnInit {
   // Shows interface for editing bucket item
   enterEditMode(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
     console.log('sct')
+    console.log(labelitem)
     console.log(selectedCurrentText)
     element.style.display = "block";
     element.focus();
     this.selectedCurrentText = selectedCurrentText;
-    labelitem.style.display = "none";
+    // labelitem.style.display = "none";
     if (this.editMode) {
       setTimeout(() => { element.focus(); }, 0);
     }
@@ -297,6 +304,11 @@ export class BucketlistComponent implements OnInit {
   // Shows confirmation message for deleting an item/bucketlist
   deletetrigger() {
     this.confirmmodal.open();
+  }
+
+  // Shows confirmation message for deleting an item/bucketlist
+  updatetrigger() {
+    this.edititemmodal.open();
   }
 
   deleteitemtrigger(selectdeleteItem: BucketItem) {

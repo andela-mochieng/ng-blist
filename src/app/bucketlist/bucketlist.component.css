@@ -12,7 +12,6 @@ md-toolbar {
   position: absolute;
   right: 5%;
   top: 34px;
-  z-index: 0;
   background-color: black;
   border-radius: 50%;
 }
@@ -42,6 +41,9 @@ md-toolbar {
 
  md-card-content {
   padding-left: 5px;
+  font-style: italic;
+  font-family: sans-serif;
+  padding-top: 80px;
  }
 
 .container{
@@ -87,7 +89,15 @@ md-toolbar {
 
 }
 
+.label-icons {
+   align-items: center;
+}
+.label-icons span i {
+  font-size:  16px;
+  float: right;
+  margin-right: 55px;
 
+}
 
 .green  {
   background-color: green;
@@ -125,18 +135,19 @@ ul {
 
 #my_ul ul li {
   display:inline-table;
-  /*margin-right: 41px;
-  margin-left: -48px;*/
 
 }
 .input-item {
   float: right;
   margin-left: 100px;
 }
+.items ul li {
+  padding: 2px !important;
+}
 
 .btn-flip {
   margin-left: 120px;
-  margin-top: 40px;
+  margin-bottom: 0px;
 }
 
 .back-flip {
@@ -151,28 +162,46 @@ ul {
 
 }
 #item i {
-  margin-top: -15px;
+  margin-top: -5px;
 }
 
 .back ul li {
   padding-top: 10px;
 }
 
+
 .checkbox {
-  float: left;
+    width: 20px;
+    height: 20px;
+    padding-left: 150px;
+}
+.td {
+    align-content: center;
+    padding: 3px !important;
+}
+.table-scrollable  {
+      height: 150px;
+      overflow: auto;
+      margin-left: 30px;
+}
+.td i {
+      font-size: 14px;
+      float: left;
 
 }
-label .material-icons {
-    font-size:12px;
-    margin-left: 250px;
+.tab-pane  {
+    padding-right: 30px
 }
+/*.fixed {
+    position: fixed;
+}*/
+
 /*flip*/
 .card {
   padding: 0 !important;
-   box-sizing: border-box;
     margin: 50px;
     width: 400px;
-    height: 150px;
+    height: 200px;
     position: relative;
     -webkit-transition: -webkit-transform 0.5s;
     -moz-transition: -moz-transform 0.5s;
