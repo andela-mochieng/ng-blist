@@ -16,6 +16,7 @@ import { BucketItem } from './blitems';
 import { CompleteTasksPipe } from './complete-tasks.pipe';
 import { SearchPipe } from './search.pipe';
 import { UncompleteTasksPipe } from './uncomplete-tasks.pipe';
+import {PaginatePipe, PaginationControlsCmp, PaginationService} from 'ng2-pagination';
 
 
 
@@ -30,9 +31,10 @@ import { UncompleteTasksPipe } from './uncomplete-tasks.pipe';
     MdInput,
     RegisterComponent,
     MODAL_DIRECTIVES,
+    PaginationControlsCmp,
   ],
-  providers: [ HTTP_PROVIDERS, MODAL_DIRECTIVES, ToastsManager , BucketlistService ],
-  pipes: [CompleteTasksPipe, SearchPipe, UncompleteTasksPipe],
+  providers: [ HTTP_PROVIDERS, MODAL_DIRECTIVES, ToastsManager , BucketlistService, PaginationService ],
+  pipes: [CompleteTasksPipe, SearchPipe, UncompleteTasksPipe, PaginatePipe],
 })
 export class BucketlistComponent implements OnInit {
   openPage: string;
@@ -144,6 +146,7 @@ export class BucketlistComponent implements OnInit {
 
   // Service  call to fetch bucketlists
   fetchbuckets() {
+
     this.bucketService.getBucketLists().subscribe(
       data => this.onComplete(data),
       err => this.logError(err),
@@ -153,7 +156,6 @@ export class BucketlistComponent implements OnInit {
 
   // Refresh  bucketlists once a save is made
   onSaveItem(data: any) {
-    console.log('fetch', data)
     this.fetchbuckets();
   }
 
@@ -175,7 +177,7 @@ export class BucketlistComponent implements OnInit {
   // Executed when an error occurs on Api call
   onComplete(data: any) {
     this.bucketlist = data;
-    var num = Object.keys(data).length;
+    var num = Object.keys(data.results).length;
     if (num > 0) {
       this.nobuckets = false;
       this.selectedBucket = data.results[this.index];
@@ -184,7 +186,6 @@ export class BucketlistComponent implements OnInit {
         this.noitems = false;
       } else {
         this.noitems = true;
-
       }
     } else {
       this.nobuckets = true;
@@ -195,14 +196,12 @@ export class BucketlistComponent implements OnInit {
 
   // Executed when an error occurs on Api call
   logError(err: any) {
-    console.log('log error')
     console.log(err)
     if (String(err['_body']).indexOf('unique') > 0) {
       this.toastr.error("Already exists");
     }
     if (err['status'] == 403) {
       console.log(err['_body']);
-      console.log('crayz log error')
       this._router.navigate(['']);
     }
   }
@@ -231,9 +230,6 @@ export class BucketlistComponent implements OnInit {
 
   // Commits an edit to bucketitem
   commitEdit(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement, bucketitem: BucketItem) {
-    console.log(updatedText)
-    console.log('update')
-    console.log(bucketitem)
     this.editMode = false;
     element.style.display = "none";
     labelitem.style.display = "block";
@@ -266,7 +262,6 @@ export class BucketlistComponent implements OnInit {
       bucket.list_name = updatedText;
       this.selectedBucket = bucket;
       if (this.selectedCurrentText != updatedText) {
-        console.log('if')
         this.updateBucket(bucket, updatedText);
       }
     } else {
@@ -277,8 +272,6 @@ export class BucketlistComponent implements OnInit {
 
   // Shows interface for editing bucket item
   enterEditMode(element: HTMLInputElement, labelitem: HTMLInputElement, selectedCurrentText: string) {
-    console.log('sct')
-    console.log(labelitem)
     console.log(selectedCurrentText)
     element.style.display = "block";
     element.focus();
@@ -367,7 +360,7 @@ export class BucketlistComponent implements OnInit {
   // Navigates user to login page
   logOut() {
     localStorage.removeItem('auth_token');
-    this._router.navigate(['signin']);
+    this._router.navigate(['/signin']);
   }
 
 
