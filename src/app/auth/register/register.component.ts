@@ -1,5 +1,6 @@
 import {Component, ElementRef, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import { Http, Headers, HTTP_PROVIDERS } from '@angular/http';
+import { Router } from '@angular/router';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
 import {MdInput} from '@angular2-material/input';
 import { ShowService } from '../show.service';
@@ -31,16 +32,17 @@ export class RegisterComponent {
 
   model = new User(1, "", "", "", "")
   @ViewChild('confirmPassword') confirmPassword: any;
-  @ViewChild('passwordd') Password: any;
+  @ViewChild('password') Password: any;
 
-  constructor(public http: Http, private _displservice: ShowService) { }
+  constructor(public http: Http, private _displservice: ShowService, private router: Router) { }
 
   // Called when signup is clicked
   onSubmit(element: HTMLInputElement) {
+    console.log('element', element)
     this.submitted = true;
+    let username = this.model.username;
     let email = this.model.email;
     let password = this.model.password;
-    let username = this.model.username;
     let confirm_password = this.model.confirm_password;
     if (confirm_password != password) {
       element.setCustomValidity("Passwords do not match");
@@ -62,14 +64,14 @@ export class RegisterComponent {
       "&username=" + username + "&confirm_password=" + confirm_password;
     var headers = new Headers();
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    this.http.post('https://bucketlist.herokuapp.com/api/v.1/api-token-auth/', params, {
+    this.http.post('https://buckelist.herokuapp.com/api/v.1/register/', params, {
       headers: headers
     })
       .map(res => res.json())
       .subscribe(
       data => this.onComplete(data),
       err => this.logError(err),
-      () => console.log('Authentication Complete')
+      () => console.log('Authenticated')
       );
   }
 
@@ -83,6 +85,7 @@ export class RegisterComponent {
   // Executed when request is successful
   onComplete(data: any) {
     this._displservice.setregister();
+    this.router.navigate(['/signin']);
     this.signupChange.emit({
       value: true
     })
@@ -91,6 +94,7 @@ export class RegisterComponent {
 
   // Emit event to signup
   showLogin() {
+    this.router.navigate(['/signin']);
     this.signupChange.emit({
       value: true
     })
