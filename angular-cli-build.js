@@ -21,6 +21,7 @@ module.exports = function(defaults) {
       'ng2-toastr/**/*.+(js|js.map)',
       'ng2-bs3-modal/**/**',
       'ng2-bootstrap/**/*',
+      'ng2-pagination/**/**',
     ]
   });
 };

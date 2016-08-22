@@ -11,6 +11,8 @@ const map: any = {
   'angular2-jwt':'vendor/angular2-jwt',
   'ng2-toastr':'vendor/ng2-toastr',
   'ng2-bs3-modal': 'vendor/ng2-bs3-modal',
+  'ng2-pagination': 'vendor/ng2-pagination',
+
 };
 
 /** User packages configuration. */
@@ -34,6 +36,9 @@ const packages: any = {
 
   },
 
+'ng2-pagination': {
+    main: 'index.js'
+  },
 
 
 };
@@ -74,6 +79,7 @@ const barrels: string[] = [
   'ng2-toastr',
   'ng2-bs3-modal',
   'jquery',
+  'ng2-pagination',
 
 
   // Thirdparty barrels.
