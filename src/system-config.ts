@@ -37,7 +37,7 @@ const packages: any = {
   },
 
 'ng2-pagination': {
-    main: 'index.js'
+    main: 'ng2-pagination'
   },
 
 
