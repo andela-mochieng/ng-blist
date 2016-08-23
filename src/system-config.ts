@@ -32,7 +32,7 @@ const packages: any = {
 
   },
   'ng2-bs3-modal': {
-    main: 'ng2-bs3-modal.min.js',
+    main: 'ng2-bs3-modal',
 
   },
 
