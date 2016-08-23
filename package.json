@@ -7,7 +7,7 @@
     "url": "https://github.com/andela-mochieng/ng-blist.git"
   },
   "scripts": {
-    "start": "ng build --prod && ng serve -prod",
+    "start": "ng build -prod && ng serve -prod",
     "postinstall": "npm install -g typings && typings install",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
