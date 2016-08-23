@@ -32,12 +32,12 @@ const packages: any = {
 
   },
   'ng2-bs3-modal': {
-    main: 'ng2-bs3-modal',
+    main: 'ng2-bs3-modal.js',
 
   },
 
 'ng2-pagination': {
-    main: 'ng2-pagination'
+    main: 'index.js'
   },
 
 
