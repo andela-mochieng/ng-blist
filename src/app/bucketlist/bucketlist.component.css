@@ -283,5 +283,14 @@ ul {
 
 .dropdown:hover .dropdown-content {
     display: block;
+    background-color: #f1f1f1
+}
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
 
