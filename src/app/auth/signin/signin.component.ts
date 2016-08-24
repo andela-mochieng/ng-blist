@@ -9,7 +9,7 @@ import { ShowService } from '../show.service';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-signin',
+  selector: 'signin',
   templateUrl: 'signin.component.html',
   styleUrls: ['../register/register.component.css'],
   directives: [
@@ -67,12 +67,14 @@ export class SigninComponent implements OnInit {
   }
 
   showSignUp() {
+    this.router.navigate(['/register']);
     this.loginChange.emit({
       value: false
     })
   }
     // Execuit after failed authentication
     logError(err: any) {
+      console.log('logerror')
     this.correct = false;
     this.userobj = JSON.parse(err["_body"]);
     this.arrayOfKeys = Object.keys(this.userobj);
