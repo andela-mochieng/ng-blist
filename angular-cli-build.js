@@ -16,12 +16,14 @@ module.exports = function(defaults) {
       'reflect-metadata/**/*.+(ts|js|js.map)',
       'rxjs/**/**.+(js|js.map)',
       '@angular/**/*.+(js|js.map)',
-      '@angular2-material/**/*.js',
+      '@angular2-material/**/*.+(js|js.map)',
       'angular2-jwt/**/*.+(js|js.map)',
       'ng2-toastr/**/*.+(js|js.map)',
       'ng2-bs3-modal/**/**.+(js|js.map)',
       'ng2-bootstrap/**/*.+(js|js.map)',
       'ng2-pagination/**/**.+(js|js.map)',
+      'angular-cli-firebase-hosting/**/**.+(js|js.map)'
+
     ]
   });
 };

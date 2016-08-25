@@ -12,6 +12,7 @@ const map: any = {
   'ng2-toastr':'vendor/ng2-toastr',
   'ng2-bs3-modal': 'vendor/ng2-bs3-modal',
   'ng2-pagination': 'vendor/ng2-pagination',
+  'angular-cli-firebase-hosting' : 'vendor/angular-cli-firebase-hosting',
 
 };
 
@@ -37,9 +38,12 @@ const packages: any = {
   },
 
 'ng2-pagination': {
-    main: 'index.js'
+    main: 'index.js',
   },
 
+'angular-cli-firebase-hosting': {
+  main: 'angular-cli-firebase-hosting',
+},
 
 };
 
@@ -80,6 +84,7 @@ const barrels: string[] = [
   'ng2-bs3-modal',
   'jquery',
   'ng2-pagination',
+  'angular-cli-firebase-hosting',
 
 
   // Thirdparty barrels.
