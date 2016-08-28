@@ -1,35 +1,33 @@
 <div class="main">
-        <md-card [style.background]="'white'">
-            <md-card-title>Sign Up</md-card-title>
-            <md-card-content>
-                <form id="loginform" class="form-horizontal" role="form" *ngIf="active" (ngSubmit)="onSubmit(confirm_password)" #loginForm="ngForm">
-                    <div [hidden]="correct" id="loginalert" class="alert alert-danger">
-                        <div *ngFor='let error of arrayOfKeys'>
-                            <p>{{userobj[error]}}</p>
-                        </div>
-                    </div>
-                    <md-input id="username" type="text"  name="username" value="" placeholder="Name" required [(ngModel)]="model.username" ngControl="username" #username="ngModel">
-                        <span md-prefix><i class="material-icons">account_circle</i></span>
-                    </md-input>
-                    <div [hidden]="username.valid || username.pristine" class="alert alert-danger"></div>
-                    <md-input id="email" type="text" name="email" value="" placeholder="email@gmail.com" required [(ngModel)]="model.email" ngControl="email" #email="ngModel">
-                        <span md-prefix><i class="material-icons">email</i></span>
-                    </md-input>
-                    <div [hidden]="email.valid || email.pristine" class="alert alert-danger"></div>
-                    <md-input #password id="password" type="password" name="password" value="" placeholder="Password" required [(ngModel)]="model.password" ngControl="password" #password="ngModel">
-                        <span md-prefix><i class="material-icons">lock</i></span>
-                    </md-input>
-                    <!-- <div [hidden]="password.valid || password.pristine" class="alert alert-danger"></div> -->
-                    <md-input #confirm_password type="password" name="confirm_password" value="" placeholder="confirm password" required [(ngModel)]="model.confirm_password" ngControl="confirm_password" #confirm_password="ngModel">
-                        <span md-prefix><i class="material-icons">lock</i></span>
-                    </md-input>
-                   <!--  <div [hidden]="confirm_password.valid || confirmPassword.pristine" class="alert alert-danger"></div> -->
-                    <!-- <div class="alert alert-danger" [class.match]="validateConfirm(password, confirm_password)">
+    <h2>Register</h2>
+    <form id="loginform" class="form-horizontal" role="form" *ngIf="active" (ngSubmit)="onSubmit(confirm_password)" #loginForm="ngForm">
+        <div [hidden]="correct" id="loginalert" class="alert alert-danger">
+            <div *ngFor='let error of arrayOfKeys'>
+                <p>{{userobj[error]}}</p>
+            </div>
+        </div>
+        <md-input id="username" type="text" name="username" value="" placeholder="Name " required [(ngModel)]="model.username" ngControl="username" #username="ngModel">
+            <span md-prefix><i class="material-icons">account_circle</i></span>
+        </md-input>
+        <div [hidden]="username.valid || (username.pristine && !loginForm.submitted) " class="alert alert-danger">Key in your username</div>
+        <md-input id="email" type="text" name="email" value="" placeholder="email@gmail.com" required [(ngModel)]="model.email" ngControl="email" #email="ngModel">
+            <span md-prefix><i class="material-icons">email</i></span>
+        </md-input>
+        <div [hidden]="email.valid || (email.pristine && !loginForm.submitted)" class="alert alert-danger">Key in your email</div>
+        <md-input  id="password" type="password" name="password" value="" placeholder="Password" required [(ngModel)]="model.password" ngControl="password" #password="ngModel">
+            <span md-prefix><i class="material-icons">lock</i></span>
+        </md-input>
+
+        <div [hidden]="password.valid || (password.pristine && !loginForm.submitted)" class="alert alert-danger">key in your password</div>
+        <md-input id="confirmPassword" type="password" name="confirm_password" value="" placeholder="confirm password" required [(ngModel)]="model.confirm_password" ngControl="confirm_password" #confirmPassword="ngModel">
+            <span md-prefix><i class="material-icons">lock</i></span>
+        </md-input>
+        <!-- <div class="alert alert-danger" [class.match]="validateConfirm(password, confirmPassword)">
                         Passwords do not match
                     </div> -->
-                   <button md-raised-button [style.background]="'#c8e6c9'"> Sign up</button>
-                </form>
-                 <p>Click here to <a class="noselect" style="cursor: pointer;" (click)="showLogin()">Log in</a></p>
-            </md-card-content>
-        </md-card>
+         <div [hidden]="confirmPassword.valid || (confirmPassword.pristine && !loginForm.submitted)" class="alert alert-danger">Confirm your password</div>
+
+        <button md-raised-button> Sign up</button>
+    </form>
+    <p>Already a member go ahead and <a class="noselect" style="cursor: pointer;" (click)="showLogin()">log in</a></p>
 </div>

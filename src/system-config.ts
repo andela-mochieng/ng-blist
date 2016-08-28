@@ -28,13 +28,13 @@ const packages: any = {
   'angular2-jwt': {
     main: 'angular2-jwt.js'
   },
+
   'ng2-toastr': {
     main: 'ng2-toastr.min.js',
-
   },
+
   'ng2-bs3-modal': {
     main: 'ng2-bs3-modal.js',
-
   },
 
 'ng2-pagination': {
@@ -42,8 +42,8 @@ const packages: any = {
   },
 
 'angular-cli-firebase-hosting': {
-  main: 'angular-cli-firebase-hosting',
-},
+  main: 'index.js',
+  },
 
 };
 

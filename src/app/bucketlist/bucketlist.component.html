@@ -3,19 +3,12 @@
 </toaster-container>
 <md-toolbar>
     <div class="container">
+    <h6 id="username">Hi, {{ username }}</h6>
         <form id="search">
             <md-input id="input-search" #bucketsearch type="text" name="search" placeholder="Search..">
                 <span md-suffix> <i #searchicon [style.cursor]="'auto'" (click)="entersearch( filterinput, searchicon)" class="material-icons md-24 md-light">search</i></span>
             </md-input>
         </form>
-    </div>
-    <div class="dropdown">
-        <span>{{ username }}</span>
-        <div class="dropdown-content">
-            <p>{{ email }}</p>
-            <br>
-            <a href="#" title="click to logout" (click)="logOut()">logout</a>
-        </div>
     </div>
     <button title="Create a bucket list" md-fab (click)="open()">
         <i style="color:white; padding-top: 5px;" class="material-icons md-24">add</i>
@@ -149,10 +142,19 @@
                 </div>
             </md-card>
         </div>
-        <footer>
-                <div class="is-text-centered">
-                    <pagination-controls (pageChange)="page = $event"></pagination-controls>
-                </div>
-            </footer>
     </div>
+    <footer>
+        <div class="is-text-centered">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="well well-sm" id="footer">
+                    <div class="container">
+                        <p>Welcome to bucketfront built by <a href="https://plus.google.com/+MaggieRain/" target="blank">@margierain</a> | to logout click <a  title="click to logout" (click)="logOut()">logout</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 </div>

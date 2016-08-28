@@ -1,62 +1,81 @@
-.main {
-    background-image: url("../../static/img/wood.jpg");
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-cover;
-    background-size: cover;
-    width:100vw;
-    height:100vh;
-
-}
-md-card-title {
-    font-weight: bolder;
-    text-align: center;
-    font-size: xx-large;
-}
-
-md-card {
-    width: 30vw;
-    height: 75vh;
-    opacity: 0.9;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
+body, .main {
+  background: #E0E0CE;
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  height: 100vh;
 }
 
 md-input {
-    margin: 10px;
-    width: 80%;
-    margin-left : 10px;
-    float:left;
-    padding-top: 20px;
-    display:block;
+      border: 0;
+      width: 350px;
+      height: 40px;
+      border-radius: 3px;
+      font-size: 14px;
+      cursor: pointer;
+      border-bottom: 1px solid #435160;
+      transition: background .3s ease-in-out;
+      margin-top: 30px;
+
 }
 
 button {
-  position: center;
-  margin: 50px;
-  width: 60%;
+  margin-top: 30px;
+  background: #1FCE6D;
+  border: 0;
+  width: 350px;
+  height: 40px;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .3s ease-in-out;
 }
 
  p {
+    padding-top: 40px;
     text-align: center;
+    color: black;
+    font-style: italic;
+    font-size: 20px;
+
  }
 
- #login-card {
-    width: 20vw;
-    height: 50vh;
-    opacity: 0.9;
-    position: absolute;
-    top: 50%;
+
+ #loginform {
+    width: 350px;
+    padding: 20px 0px;
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: #6D7781;
+    font-size: 16px;
+    top: 10%;
     left: 50%;
-    transform: translate(-50%, -50%);
-
+    margin: auto;
  }
 
 
+h2 {
+    padding-top: 90px;
+    color: #0A122A;
+    font-family: 'Sofia', cursive;
+    font-size: 15px;
+    font-weight: bold;
+    font-size: 3.6em;
+    text-align: center;
+    padding-bottom: 20px;
+    margin: 0;
+}
+.material-icons {
+    color: black;
 
+}
 
+a {
+    color: #1FCE6D;
+    font-style: italic;
+}
+button {
+  background-color: #698F3F;
+}
 
