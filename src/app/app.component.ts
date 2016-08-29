@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
     if (jwtHelper.isTokenExpired(token)) {
       this.router.navigate(['/signin']);
     } else {
-      console.log('in bucket')
       this.router.navigate(['']);
     }
   } else {

@@ -3,7 +3,7 @@
 </toaster-container>
 <md-toolbar>
     <div class="container">
-    <h6 id="username">Hi, {{ username }}</h6>
+        <h6 id="username">Hi, {{ username }}</h6>
         <form id="search">
             <md-input id="input-search" #bucketsearch type="text" name="search" placeholder="Search..">
                 <span md-suffix> <i #searchicon [style.cursor]="'auto'" (click)="entersearch( filterinput, searchicon)" class="material-icons md-24 md-light">search</i></span>
@@ -59,15 +59,27 @@
                                 <div *ngFor=" let bucket of bucketlist?.results | searchFilter:bucketsearch.value; let s = index " [class.selected]="bucket===selectedBucket " (click)="onSelect(bucket,s) ">
                                     <div #bname class="view">
                                         <div *ngIf="bucket === selectedBucket">
-                                            <input class="editbucket" [value]="bucket.list_name" #editbucketid (keyup.enter)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" (keyup.escape)="cancelEdit(editbucketid, bname, bucket)" (blur)="commitEditBucketList(editbucketid.value,editbucketid, bname, bucket)" class="form-control no-border input-lg" autofocus placeholder="Update Bucket Name">
+                                            <input type="text" autofocus [value]="bucket.list_name" #editbucket class="editbucket" (keyup.enter)="commitEditBucketList(editbucket.value,editbucket, bname, bucket)" (keyup.escape)="cancelEdit(editbucket, bname, bucket)" (blur)="commitEditBucketList(editbucket.value,editbucket, bname, bucket)" class="form-control no-border input-lg">
                                         </div>
                                     </div>
                                 </div>
                             </modal-body>
                             <modal-footer>
-                                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()"><i class="material-icons">cancel</i></button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
                                 <button type="button" class="btn btn-danger" (click)="deletetrigger()"><i class="large material-icons">delete</i></button>
                                 <button type="submit" class="btn btn-primary" (click)="bucketname=bucketlistid.value; editmodal.close();"><i class="material-icons">update</i></button>
+                            </modal-footer>
+                        </modal>
+                        <modal [animation]="animationsEnabled" (onClose)="deletetrigger()" #modalconfirm>
+                            <modal-header [show-close]="true">
+                                <h4 class="modal-title">Confirm Delete</h4>
+                            </modal-header>
+                            <modal-body>
+                                You are about to delete an bucket list?
+                            </modal-body>
+                            <modal-footer>
+                                <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+                                <button type="button" style="width: 80px;" class="btn btn-primary" (click)="deleteBucketList().close();">Delete</button>
                             </modal-footer>
                         </modal>
                         <button class="btn-flip" id="item{{bucket.id}}" type="button">Items {{ bucket.items.length }} </button>
@@ -90,25 +102,32 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr class="fixed">
+                                            <th>
+                                                <div *ngIf="!noitems" (click)="showCompleted(togglep)" id="showcompleted">
+                                                    <button #togglep  class="noselect">show complete items</button>
+                                                </div>
+                                            </th>
                                             <th></th>
-                                            <th>Item</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let bucketitem of selectedBucket.items | uncompleteTasks: selectedBucket.items" [class.editing]="editMode">
+
+                                        <!-- <tr *ngFor="let bucketitem of selectedBucket.items | completeTasks: selectedBucket.items" [class.editing]="editMode"> -->
                                             <td #viewitem class="view td" [class.completed]="bucketitem.done">
                                                 <input type="checkbox" class="toggle checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
                                             </td>
                                             <td style="width: 50%;" class="td">{{bucketitem.item_name}}</td>
                                             <td class="td"><i (click)="updatetrigger(enterEditMode(ItemInput,  labelitem, ItemInput.value))" style="cursor: pointer;" class="material-icons">edit</i></td>
+
                                             <modal [animation]="animationsEnabled" (onClose)="updateItem()" #edititemModal>
                                                 <modal-header [show-close]="true">
                                                     <h4 class="modal-title">Update item</h4>
                                                 </modal-header>
                                                 <modal-body>
-                                                    <input #ItemInput type="text" class="form-control no-border input-lg" type="text" autofocus placeholder="Update Bucket item" class="edit" [value]="bucketitem.item_name" (keyup.enter)="commitEdit(ItemInput.value,ItemInput, labelitem)" (keyup.escape)="cancelEdit(ItemInput, labelitem, selectedBucket)" (blur)="commitEdit(ItemInput.value,ItemInput, labelitem,bucketitem)">
+                                                    <input #ItemInput type="text" autofocus class="edit" [value]="bucketitem.item_name" (keyup.enter)="commitEdit(ItemInput.value,ItemInput, labelitem)" (keyup.escape)="cancelEdit(ItemInput, labelitem, selectedBucket)" (blur)="commitEdit(ItemInput.value,ItemInput, labelitem,bucketitem)" class="form-control no-border input-lg">
                                                 </modal-body>
                                                 <modal-footer>
                                                     <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
@@ -151,7 +170,7 @@
             <div class="col-sm-12">
                 <div class="well well-sm" id="footer">
                     <div class="container">
-                        <p>Welcome to bucketfront built by <a href="https://plus.google.com/+MaggieRain/" target="blank">@margierain</a> | to logout click <a  title="click to logout" (click)="logOut()">logout</a></p>
+                        <p>Welcome to bucketfront built by <a href="https://plus.google.com/+MaggieRain/" target="blank">@margierain</a> | to logout click <a title="click to logout" (click)="logOut()">logout</a></p>
                     </div>
                 </div>
             </div>

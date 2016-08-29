@@ -97,7 +97,6 @@ export class BucketlistComponent implements OnInit {
 
   // Opens modal
   open_edit() {
-    console.log('mad')
     this.editmodal.open();
     this.blistid.nativeElement.value = "";
 
@@ -256,7 +255,7 @@ export class BucketlistComponent implements OnInit {
   // Commits an edit to bucket list
   commitEditBucketList(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement, bucket: Bucketlist) {
     this.editMode = false;
-    element.style.display = "none";
+    element.style.display = "block";
     labelitem.style.display = "block";
     if (updatedText.length > 0) {
       bucket.list_name = updatedText;
@@ -294,7 +293,7 @@ export class BucketlistComponent implements OnInit {
     }
   }
 
-  // Shows confirmation message for deleting an item/bucketlist
+  // Shows confirmation message for deleting an bucketlist
   deletetrigger() {
     this.confirmmodal.open();
   }
@@ -310,7 +309,6 @@ export class BucketlistComponent implements OnInit {
   }
 
   onDeleteBucket() {
-    console.log("bucketlist deleted");
     this.bucketService.getBucketLists().subscribe(
       data => this.onDeleteComplete(data),
       err => this.logError(err),

@@ -23,7 +23,7 @@ md-toolbar {
   font-style: italic;
   margin-top: 30px;
   font-family: 'Open Sans', sans-serif;
-  color: #6D7781;
+  color: #0A122A;
   margin-left: -100px;
 
 }
@@ -291,11 +291,7 @@ html, body, .two {
    position:absolute;
    top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');
 }
-/*.ng2-pagination {
-  float: right;
-}
-.ng2-pagination[_ngcontent-vtm-10] .disabled[_ngcontent-vtm-10], .ng2-pagination[_ngcontent-vtm-10] a[_ngcontent-vtm-10] {
-  font-size: 14px;
-}
-*/
 
+.noselect {
+  font-size: 10px;
+}

@@ -1,4 +1,5 @@
 <div class="main ">
+    <h4 class="member first">Bucketfront gets you started on making your bucketlists</h4>
     <h2>Log in</h2>
     <div [hidden]="register_success" class="alert alert-info fade in">
         <a style="cursor: pointer;" (click)="closealert()" class="close" data-dismiss="alert" aria-label="close">&times;</a> Login to access your account
@@ -19,5 +20,5 @@
         <div [hidden]="password.valid || password.pristine" class="alert alert-danger">Key in your password</div>
         <button md-raised-button  [disabled]="!loginForm.form.valid"> Log in</button>
     </form>
-    <p>Click here to <a class="noselect" style="cursor: pointer;" (click)="showSignUp()">Sign Up</a></p>
+    <p class="member">Click here to <a class="noselect" style="cursor: pointer;" (click)="showSignUp()">Sign Up</a></p>
 </div>
