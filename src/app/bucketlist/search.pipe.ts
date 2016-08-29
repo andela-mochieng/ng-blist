@@ -10,9 +10,9 @@ export class SearchPipe implements PipeTransform {
   transform(bucketlist: Bucketlist[], args: any): any {
       if (bucketlist == null) {
           return null;
+
       }
-      console.log('search', args)
-    return bucketlist.filter((item: Bucketlist) => new RegExp(args).test(item.list_name));
+    return bucketlist.filter((item: Bucketlist) => new RegExp(args, 'ig').test(item.list_name));
   }
 
 }
