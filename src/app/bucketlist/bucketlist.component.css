@@ -113,29 +113,15 @@ md-card-title {
 
 }
 
+
 .green  {
-  background-color: green;
-  position: absolute;
-  right: 25px;
-
-
-}
-
-.black  {
-    background-color: black;
+    background-color: #000;
     position: absolute;
     top: 2px;
-    left: 20px;
+    right: 1px;
 
 }
 
-.fixed-action-btn {
-  position: absolute;
-  display:inline-table;
-  right: 28px;
-
-
-}
 
 ul {
   list-style-type: none;
@@ -147,10 +133,6 @@ ul {
 
 }
 
-#my_ul ul li {
-  display:inline-table;
-
-}
 .input-item {
   float: right;
   margin-left: 100px;
