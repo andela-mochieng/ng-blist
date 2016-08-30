@@ -15,7 +15,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 export class AppComponent implements OnInit {
   constructor(private router: Router) { }
     title ="app works";
-  // Checks for token expiration to disp]ay appropriate page
+  // Checks for token expiration to display appropriate page
   ngOnInit() {
   var jwtHelper = new JwtHelper();
   var token = localStorage.getItem('auth_token');
@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
     if (jwtHelper.isTokenExpired(token)) {
       this.router.navigate(['/signin']);
     } else {
-      this.router.navigate(['']);
+      this.router.navigate(['/bucket']);
     }
   } else {
     console.log('signin')

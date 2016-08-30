@@ -58,7 +58,7 @@ export class SigninComponent implements OnInit {
   // store auth token on the browser
   onComplete(data:any) {
     localStorage.setItem('auth_token', data["token"]);
-    this.router.navigate(['']);
+    this.router.navigate(['/bucket']);
   }
 
   // close the success alert pop up

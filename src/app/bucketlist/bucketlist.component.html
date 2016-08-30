@@ -38,7 +38,7 @@
                 <div class="front face">
                     <md-card-title id="edbucket"> {{bucket.list_name}}
                         <div class="fixed-action-btn">
-                            <a id="btn-main" class="btn-primary btn-floating btn-large green" (click)="open_edit()"><i class="material-icons">mode_edit</i></a>
+                            <a id="btn-main" class="btn-primary btn-floating btn-large green" (click)="editModal.open()"><i class="material-icons">mode_edit</i></a>
                         </div>
                     </md-card-title>
                     <md-card-content>
@@ -58,12 +58,12 @@
                                 </div>
                             </modal-body>
                             <modal-footer>
-                                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-                                <button type="button" class="btn btn-danger" (click)="deletetrigger()"><i class="large material-icons">delete</i></button>
-                                <button type="submit" class="btn btn-primary" (click)="bucketname=bucketlistid.value; editmodal.close();"><i class="material-icons">update</i></button>
+                                <button type="button" class="btn btn-default" (click)="editModal.close()">Cancel</button>
+                                <button type="button" class="btn btn-danger" (click)="modalconfirm.open(); editModal.close(); "><i class="large material-icons">delete</i></button>
+                                <button type="submit" class="btn btn-primary" (click)="bucketname=bucketlistid.value; editModal.close();"><i class="material-icons">update</i></button>
                             </modal-footer>
                         </modal>
-                        <modal [animation]="animationsEnabled" (onClose)="deletetrigger()" #modalconfirm>
+                        <modal [animation]="animationsEnabled" #modalconfirm>
                             <modal-header [show-close]="true">
                                 <h4 class="modal-title">Confirm Delete</h4>
                             </modal-header>
@@ -72,7 +72,7 @@
                             </modal-body>
                             <modal-footer>
                                 <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-                                <button type="button" style="width: 80px;" class="btn btn-primary" (click)="deleteBucketList().close();">Delete</button>
+                                <button type="button" style="width: 80px;" class="btn btn-primary" (click)="deleteBucketList(); modalconfirm.close();">Delete</button>
                             </modal-footer>
                         </modal>
                         <button class="btn-flip" id="item{{bucket.id}}" type="button">Items {{ bucket.items.length }} </button>

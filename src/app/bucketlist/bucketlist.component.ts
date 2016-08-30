@@ -62,6 +62,10 @@ export class BucketlistComponent implements OnInit {
   @Input() public selectedCurrentText: string;
 
   constructor(private el: ElementRef, private _router: Router, private bucketService: BucketlistService, public toastr: ToastsManager  ) {
+    let token = localStorage.getItem('auth_token');
+    if(!token) {
+      this._router.navigate(['/signin']);
+    }
     this.openPage = "signin";
 
   }
@@ -86,22 +90,6 @@ export class BucketlistComponent implements OnInit {
 
   @ViewChild('editbucketid')
   blistid: any;
-
-
-  // Opens modal
-  open() {
-    this.modal.open();
-    this.bitemid.nativeElement.value = "";
-
-  }
-
-  // Opens modal
-  open_edit() {
-    this.editmodal.open();
-    this.blistid.nativeElement.value = "";
-
-  }
-
 
 
   // Gets user eg. name object .
@@ -201,7 +189,7 @@ export class BucketlistComponent implements OnInit {
     }
     if (err['status'] == 403) {
       console.log(err['_body']);
-      this._router.navigate(['']);
+      this._router.navigate(['/bucket']);
     }
   }
 
@@ -215,7 +203,7 @@ export class BucketlistComponent implements OnInit {
       this.email = this.getUser()['email'];
       this.querystring = "";
     } else {
-      this._router.navigate(['']);
+      this._router.navigate(['/bucket']);
     }
   }
 
@@ -293,10 +281,6 @@ export class BucketlistComponent implements OnInit {
     }
   }
 
-  // Shows confirmation message for deleting an bucketlist
-  deletetrigger() {
-    this.confirmmodal.open();
-  }
 
   // Shows confirmation message for deleting an item/bucketlist
   updatetrigger() {
