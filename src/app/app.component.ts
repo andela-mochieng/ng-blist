@@ -3,6 +3,7 @@ import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 import { SigninComponent } from './auth/signin/signin.component';
 
+
 @Component({
   moduleId: module.id,
   selector: 'app-root',
@@ -13,7 +14,9 @@ import { SigninComponent } from './auth/signin/signin.component';
 })
 
 export class AppComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+
+  }
     title ="app works";
   // Checks for token expiration to display appropriate page
   ngOnInit() {

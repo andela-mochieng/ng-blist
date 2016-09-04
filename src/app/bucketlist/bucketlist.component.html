@@ -44,6 +44,7 @@
                     <md-card-content>
                         <span md-prefix>Date created: {{ bucket.date_created | date: 'mediumDate' }} </span>
                         <span *ngIf="bucket.date_updated " md-suffix>Date modified: {{ bucket.date_updated | date: 'mediumDate' }} </span>
+
                         <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #editModal>
                             <modal-header [show-close]="true">
                                 <h4 class="modal-title">Update Bucket Name</h4>
@@ -58,7 +59,7 @@
                                 </div>
                             </modal-body>
                             <modal-footer>
-                                <button type="button" class="btn btn-default" (click)="editModal.close()">Cancel</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
                                 <button type="button" class="btn btn-danger" (click)="modalconfirm.open(); editModal.close(); "><i class="large material-icons">delete</i></button>
                                 <button type="submit" class="btn btn-primary" (click)="bucketname=bucketlistid.value; editModal.close();"><i class="material-icons">update</i></button>
                             </modal-footer>
@@ -95,20 +96,22 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr class="fixed">
-                                            <th>
-                                                <div *ngIf="!noitems" (click)="showCompleted(togglep)" id="showcompleted">
-                                                    <button #togglep  class="noselect">show complete items</button>
-                                                </div>
-                                            </th>
                                             <th></th>
+                                            <th>Items</th>
                                             <th></th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let bucketitem of selectedBucket.items | uncompleteTasks: selectedBucket.items" [class.editing]="editMode">
-
-                                        <!-- <tr *ngFor="let bucketitem of selectedBucket.items | completeTasks: selectedBucket.items" [class.editing]="editMode"> -->
+                                        <tr id="incomplete" *ngFor="let bucketitem of selectedBucket.items | uncompleteTasks: selectedBucket.items" [class.editing]="editMode">
+                                            <td #viewitem class="view td" [class.completed]="bucketitem.done">
+                                                <input type="checkbox" class="toggle checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
+                                            </td>
+                                            <td style="width: 50%;" class="td">{{bucketitem.item_name}}</td>
+                                            <td class="td"><i (click)="updatetrigger(enterEditMode(ItemInput,  labelitem, ItemInput.value))" style="cursor: pointer;" class="material-icons">edit</i></td>
+                                             <td class="td"><i (click)="deleteitemtrigger(bucketitem)" style="cursor: pointer;" class="material-icons ">delete_forever</i></td>
+                                            <!-- complete items -->
+                                            <tr id="complete" *ngFor="let bucketitem of selectedBucket.items | completeTasks: selectedBucket.items" [class.editing]="editMode">
                                             <td #viewitem class="view td" [class.completed]="bucketitem.done">
                                                 <input type="checkbox" class="toggle checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
                                             </td>

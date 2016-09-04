@@ -7,7 +7,6 @@ import {AuthHttp, AuthConfig, AUTH_PROVIDERS, JwtHelper} from 'angular2-jwt';
 import { MODAL_DIRECTIVES, ModalComponent, ModalResult} from 'ng2-bs3-modal/ng2-bs3-modal';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
-import {CanActivate} from '@angular/router-deprecated';
 import { SigninComponent } from '../auth/signin';
 import { RegisterComponent } from '../auth/register';
 import { BucketlistService } from './bucketlist.service';
@@ -189,7 +188,7 @@ export class BucketlistComponent implements OnInit {
     }
     if (err['status'] == 403) {
       console.log(err['_body']);
-      this._router.navigate(['/bucket']);
+      this._router.navigate(['']);
     }
   }
 
@@ -203,7 +202,7 @@ export class BucketlistComponent implements OnInit {
       this.email = this.getUser()['email'];
       this.querystring = "";
     } else {
-      this._router.navigate(['/bucket']);
+      this._router.navigate(['/signin']);
     }
   }
 
@@ -263,7 +262,7 @@ export class BucketlistComponent implements OnInit {
     element.style.display = "block";
     element.focus();
     this.selectedCurrentText = selectedCurrentText;
-    // labelitem.style.display = "none";
+
     if (this.editMode) {
       setTimeout(() => { element.focus(); }, 0);
     }

@@ -51,8 +51,6 @@ export class BucketlistService {
 
 // Api call to save bucket item
   saveBucketItem(bid: number, item_name: string): Observable<any> {
-    console.log('save bucket')
-    console.log('items', item_name)
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
@@ -77,9 +75,6 @@ export class BucketlistService {
   updateBucket(list_name: string, bid: number): Observable<any> {
     var headers = new Headers();
     console.log('update bucket')
-    console.log(list_name)
-    console.log(bid)
-    console.log(headers)
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
     return this.http.put('https://buckelist.herokuapp.com/api/v.1/bucketlists/' + bid + '/', JSON.stringify({ 'list_name': list_name }),  {

@@ -144,6 +144,7 @@ ul {
 .btn-flip {
   margin-left: 120px;
   margin-bottom: 0px;
+  background-color: #33DAFF;
 }
 
 .back-flip {
@@ -276,4 +277,10 @@ html, body, .two {
 
 .noselect {
   font-size: 10px;
+}
+#complete {
+  background-color: #d5f9d5;
+}
+#incomplete {
+  background-color: #ead5db;
 }
