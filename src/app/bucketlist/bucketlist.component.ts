@@ -1,3 +1,4 @@
+
 import {Component, ElementRef, Input, Output, EventEmitter, OnInit, ViewContainerRef, ViewChild, AfterViewInit} from '@angular/core';
 import {MdToolbar} from '@angular2-material/toolbar';
 import {MD_CARD_DIRECTIVES} from '@angular2-material/card';
@@ -90,6 +91,20 @@ export class BucketlistComponent implements OnInit {
   @ViewChild('editbucketid')
   blistid: any;
 
+ // Opens modal
+  open() {
+    this.modal.open();
+    this.bitemid.nativeElement.value = "";
+
+  }
+
+  // Opens modal
+  open_edit() {
+    this.editmodal.open();
+    this.blistid.nativeElement.value = "";
+
+  }
+
 
   // Gets user eg. name object .
   getUser() {
@@ -100,7 +115,7 @@ export class BucketlistComponent implements OnInit {
 
 
   // Execute on modal closed
-  onClose(result: ModalResult) {
+  onClose() {
     this.createBucketList(this.bucketname);
   }
 
@@ -117,14 +132,14 @@ export class BucketlistComponent implements OnInit {
   }
 
    // Execute on successful bucketlist  creation
-  onCreateBucket(data: any) {
+  onCreateBucket() {
     this.fetchbuckets();
   }
 
   // Service called to create bucketlists
   createBucketList(bucketname: string) {
     this.bucketService.createBucket(bucketname).subscribe(
-      data => this.onCreateBucket(data),
+      data => this.onCreateBucket(),
       err => this.logError(err),
       () => console.log('Added successful')
     );
@@ -132,7 +147,7 @@ export class BucketlistComponent implements OnInit {
 
   // Service  call to fetch bucketlists
   fetchbuckets() {
-
+    console.log("start fetch");
     this.bucketService.getBucketLists().subscribe(
       data => this.onComplete(data),
       err => this.logError(err),
@@ -182,9 +197,9 @@ export class BucketlistComponent implements OnInit {
 
   // Executed when an error occurs on Api call
   logError(err: any) {
-    console.log(err)
+    console.log(err);
     if (String(err['_body']).indexOf('unique') > 0) {
-      this.toastr.error("Already exists");
+      this.toastr.error("Request not processed");
     }
     if (err['status'] == 403) {
       console.log(err['_body']);
@@ -206,13 +221,7 @@ export class BucketlistComponent implements OnInit {
     }
   }
 
-  // Dismisses editing interface
-  cancelEdit(element: HTMLInputElement, labelitem: HTMLInputElement, bucket: Bucketlist) {
-    this.editMode = false;
-    element.style.display = "none";
-    labelitem.style.display = "block";
-    this.selectedBucket = bucket;
-  }
+
 
   // Commits an edit to bucketitem
   commitEdit(updatedText: string, element: HTMLInputElement, labelitem: HTMLInputElement, bucketitem: BucketItem) {
@@ -287,19 +296,16 @@ export class BucketlistComponent implements OnInit {
   }
 
   deleteitemtrigger(selectdeleteItem: BucketItem) {
+    console.log(selectdeleteItem);
     this.selectdeleteItem = selectdeleteItem
-    this.confirmmodalitem.open();
   }
 
   onDeleteBucket() {
-    this.bucketService.getBucketLists().subscribe(
-      data => this.onDeleteComplete(data),
-      err => this.logError(err),
-      () => console.log('Complete')
-    );
+    this.fetchbuckets();
   }
   // Calls service to delete bucketlist
   deleteBucketList() {
+    console.log("Start delete")
     this.bucketService.deleteBucket(this.selectedBucket.id).subscribe(
       data => this.onDeleteBucket(),
       err => this.logError(err),
@@ -356,7 +362,7 @@ export class BucketlistComponent implements OnInit {
     );
   }
 
-  // Toggles between completed and uncompleted items
+    // Toggles between completed and uncompleted items
   toggle(bucketitem: BucketItem) {
     console.log('bitem')
     console.log(bucketitem)
@@ -368,7 +374,6 @@ export class BucketlistComponent implements OnInit {
     bucketitem.done = !bucketitem.done;
     this.updateItem(bucketitem, bucketitem.done);
   }
-
 
 
   // Displays completed items label

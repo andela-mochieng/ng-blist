@@ -12,6 +12,7 @@ export class BucketlistService {
   constructor(public http: Http) {}
 
   // Api call to create a bucket
+
   createBucket(list_name: string) {
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -40,13 +41,13 @@ export class BucketlistService {
 
 // Api call to delete a bucket
   deleteBucket(bid: number): Observable<any> {
+    console.log("Start deletebucket")
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
     return this.http.delete('https://buckelist.herokuapp.com/api/v.1/bucketlists/' + bid + '/', {
       headers: headers
-    })
-      .map(res => res.json());
+    });
   }
 
 // Api call to save bucket item
@@ -92,8 +93,7 @@ export class BucketlistService {
     headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));
     return this.http.delete('https://buckelist.herokuapp.com/api/v.1/bucketlists/' + bid + '/items/' + itemid + '/', {
       headers: headers
-    })
-      .map(res => res.json());
+    });
   }
 
 

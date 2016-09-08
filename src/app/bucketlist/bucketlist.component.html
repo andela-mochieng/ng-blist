@@ -20,7 +20,7 @@
             <h4>Hey there, {{ username }}! Welcome to bucketfront, you currently have  no bucketlists to display. To create one click <a style="cursor: pointer;" (click)="open()">here</a></h4>
         </div>
     </div>
-    <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #myModal>
+    <modal [animation]="animationsEnabled" (onClose)="onClose()" #myModal>
         <modal-header [show-close]="true">
             <h4 class="modal-title">Enter Bucket Name</h4>
         </modal-header>
@@ -44,8 +44,7 @@
                     <md-card-content>
                         <span md-prefix>Date created: {{ bucket.date_created | date: 'mediumDate' }} </span>
                         <span *ngIf="bucket.date_updated " md-suffix>Date modified: {{ bucket.date_updated | date: 'mediumDate' }} </span>
-
-                        <modal [animation]="animationsEnabled" (onClose)="onClose($event)" #editModal>
+                        <modal [animation]="animationsEnabled" #editModal>
                             <modal-header [show-close]="true">
                                 <h4 class="modal-title">Update Bucket Name</h4>
                             </modal-header>
@@ -53,7 +52,7 @@
                                 <div *ngFor=" let bucket of bucketlist?.results | searchFilter:bucketsearch.value; let s = index " [class.selected]="bucket===selectedBucket " (click)="onSelect(bucket,s) ">
                                     <div #bname class="view">
                                         <div *ngIf="bucket === selectedBucket">
-                                            <input type="text" autofocus [value]="bucket.list_name" #editbucket class="editbucket" (keyup.enter)="commitEditBucketList(editbucket.value,editbucket, bname, bucket)" (keyup.escape)="cancelEdit(editbucket, bname, bucket)" (blur)="commitEditBucketList(editbucket.value,editbucket, bname, bucket)" class="form-control no-border input-lg">
+                                            <input type="text" autofocus [value]="bucket.list_name" #editbucket (keyup.escape)="editModal.close()" (keyup.enter)="commitEditBucketList(editbucket.value,editbucket, bname, bucket)" class="form-control no-border input-lg" />
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +60,7 @@
                             <modal-footer>
                                 <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
                                 <button type="button" class="btn btn-danger" (click)="modalconfirm.open(); editModal.close(); "><i class="large material-icons">delete</i></button>
-                                <button type="submit" class="btn btn-primary" (click)="bucketname=bucketlistid.value; editModal.close();"><i class="material-icons">update</i></button>
+                                <button type="submit" class="btn btn-primary" (click)="bucketname=editbucket.value; editModal.close();"><i class="material-icons">update</i></button>
                             </modal-footer>
                         </modal>
                         <modal [animation]="animationsEnabled" #modalconfirm>
@@ -109,45 +108,69 @@
                                             </td>
                                             <td style="width: 50%;" class="td">{{bucketitem.item_name}}</td>
                                             <td class="td"><i (click)="updatetrigger(enterEditMode(ItemInput,  labelitem, ItemInput.value))" style="cursor: pointer;" class="material-icons">edit</i></td>
-                                             <td class="td"><i (click)="deleteitemtrigger(bucketitem)" style="cursor: pointer;" class="material-icons ">delete_forever</i></td>
-                                            <!-- complete items -->
-                                            <tr id="complete" *ngFor="let bucketitem of selectedBucket.items | completeTasks: selectedBucket.items" [class.editing]="editMode">
-                                            <td #viewitem class="view td" [class.completed]="bucketitem.done">
-                                                <input type="checkbox" class="toggle checkbox" (click)="toggle(bucketitem)" [checked]="bucketitem.done">
-                                            </td>
-                                            <td style="width: 50%;" class="td">{{bucketitem.item_name}}</td>
-                                            <td class="td"><i (click)="updatetrigger(enterEditMode(ItemInput,  labelitem, ItemInput.value))" style="cursor: pointer;" class="material-icons">edit</i></td>
-
-                                            <modal [animation]="animationsEnabled" (onClose)="updateItem()" #edititemModal>
-                                                <modal-header [show-close]="true">
-                                                    <h4 class="modal-title">Update item</h4>
+                                            <td class="td"><i (click)="modalconfirmitem.open()" style="cursor: pointer;" class="material-icons ">delete_forever</i></td>
+                                            <modal [animation]="animationsEnabled " (onClose)="updateItem() " #edititemModal>
+                                                <modal-header [show-close]="true ">
+                                                    <h4 class="modal-title ">Update item</h4>
                                                 </modal-header>
                                                 <modal-body>
-                                                    <input #ItemInput type="text" autofocus class="edit" [value]="bucketitem.item_name" (keyup.enter)="commitEdit(ItemInput.value,ItemInput, labelitem)" (keyup.escape)="cancelEdit(ItemInput, labelitem, selectedBucket)" (blur)="commitEdit(ItemInput.value,ItemInput, labelitem,bucketitem)" class="form-control no-border input-lg">
+                                                    <input #ItemInput type="text " autofocus class="edit " [value]="bucketitem.item_name " (keyup.enter)="commitEdit(ItemInput.value,ItemInput, labelitem) " (keyup.escape)="cancelEdit(ItemInput, labelitem, selectedBucket) " (blur)="commitEdit(ItemInput.value,ItemInput, labelitem,bucketitem) " class="form-control no-border input-lg ">
                                                 </modal-body>
                                                 <modal-footer>
-                                                    <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-                                                    <button type="button" style="width: 80px;" class="btn btn-primary" (click)="edititemmodal.close();">Update</button>
+                                                    <button type="button " style="width: 80px; " class="btn btn-default " data-dismiss="modal " (click)="modal.dismiss() ">Cancel</button>
+                                                    <button type="button " style="width: 80px; " class="btn btn-primary " (click)="edititemmodal.close(); ">Update</button>
                                                 </modal-footer>
                                             </modal>
-                                            <td class="td"><i (click)="deleteitemtrigger(bucketitem)" style="cursor: pointer;" class="material-icons ">delete_forever</i></td>
-                                            <modal [animation]="animationsEnabled" (onClose)="deleteItem()" #modalconfirmitem>
-                                                <modal-header [show-close]="true">
-                                                    <h4 class="modal-title">Confirm Delete</h4>
+                                            <modal [animation]="animationsEnabled " (onClose)="deleteItem() " #modalconfirmitem>
+                                                <modal-header [show-close]="true ">
+                                                    <h4 class="modal-title ">Confirm Delete</h4>
                                                 </modal-header>
                                                 <modal-body>
                                                     You are about to delete an item?
                                                 </modal-body>
                                                 <modal-footer>
-                                                    <button type="button" style="width: 80px;" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-                                                    <button type="button" style="width: 80px;" class="btn btn-primary" (click)="confirmmodalitem.close();">Delete</button>
+                                                    <button type="button " style="width: 80px; " class="btn btn-default " data-dismiss="modal " (click)="modal.dismiss() ">Cancel</button>
+                                                    <button type="button " style="width: 80px; " class="btn btn-primary " (click)="deleteitemtrigger(bucketitem); confirmmodalitem.close(); ">Delete</button>
+                                                </modal-footer>
+                                            </modal>
+                                        </tr>
+                                        <!-- complete items -->
+                                        <tr id="completed" *ngFor="let bucketitem of selectedBucket.items | completeTasks: selectedBucket.items" [class.editing]="editMode">
+                                            <td class="view td ">
+                                                <input type="checkbox" class="toggle checkbox " (click)="toggle(bucketitem) " [checked]="bucketitem.done ">
+                                            </td>
+                                            <td class="td ">{{bucketitem.item_name}}</td>
+                                            <td class="td "><i (click)="updatetrigger(enterEditMode(ItemInput, labelitem, ItemInput.value)) " style="cursor: pointer; " class="material-icons ">edit</i></td>
+                                            <modal [animation]="animationsEnabled " (onClose)="updateItem() " #edititemModal>
+                                                <modal-header [show-close]="true ">
+                                                    <h4 class="modal-title ">Update item</h4>
+                                                </modal-header>
+                                                <modal-body>
+                                                    <input #ItemInput type="text " autofocus class="edit " [value]="bucketitem.item_name " (keyup.enter)="commitEdit(ItemInput.value,ItemInput, labelitem) " (keyup.escape)="cancelEdit(ItemInput, labelitem, selectedBucket) " (blur)="commitEdit(ItemInput.value,ItemInput, labelitem,bucketitem) " class="form-control no-border input-lg ">
+                                                </modal-body>
+                                                <modal-footer>
+                                                    <button type="button " style="width: 80px; " class="btn btn-default " data-dismiss="modal " (click)="modal.dismiss() ">Cancel</button>
+                                                    <button type="button " style="width: 80px; " class="btn btn-primary " (click)="edititemmodal.close(); ">Update</button>
+                                                </modal-footer>
+                                            </modal>
+                                            <td class="td "><i (click)="modalconfirmitem.open() " style="cursor: pointer; " class="material-icons ">delete_forever</i></td>
+                                            <modal [animation]="animationsEnabled " (onClose)="deleteItem() " #modalconfirmitem>
+                                                <modal-header [show-close]="true ">
+                                                    <h4 class="modal-title ">Confirm Delete</h4>
+                                                </modal-header>
+                                                <modal-body>
+                                                    You are about to delete an item?
+                                                </modal-body>
+                                                <modal-footer>
+                                                    <button type="button " style="width: 80px; " class="btn btn-default " data-dismiss="modal " (click)="modal.dismiss() ">Cancel</button>
+                                                    <button type="button " style="width: 80px; " class="btn btn-primary " (click)="deleteitemtrigger(bucketitem); confirmmodalitem.close(); ">Delete</button>
                                                 </modal-footer>
                                             </modal>
                                         </tr>
                                     </tbody>
                                     <tfoot>
-                                        <tr class="fixed">
-                                            <button class="btn-flip back-flip " type="button">back</button>
+                                        <tr class="fixed ">
+                                            <button class="btn-flip back-flip " type="button ">back</button>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -159,14 +182,14 @@
         </div>
     </div>
     <footer>
-        <div class="is-text-centered">
-            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        <div class="is-text-centered ">
+            <pagination-controls (pageChange)="page=$event "></pagination-controls>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
+        <div class="row ">
+            <div class="col-sm-12 ">
                 <div class="well well-sm" id="footer">
-                    <div class="container">
-                        <p>Welcome to bucketfront built by <a href="https://plus.google.com/+MaggieRain/" target="blank">@margierain</a> | to logout click <a title="click to logout" (click)="logOut()">logout</a></p>
+                    <div class="container ">
+                        <p>Welcome to bucketfront built by <a href="https://plus.google.com/+MaggieRain/ " target="blank ">@margierain</a> | to logout click <a title="click to logout " (click)="logOut() ">logout</a></p>
                     </div>
                 </div>
             </div>
