@@ -41,7 +41,6 @@ export class BucketlistService {
 
 // Api call to delete a bucket
   deleteBucket(bid: number): Observable<any> {
-    console.log("Start deletebucket")
     var headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'JWT ' + localStorage.getItem('auth_token'));

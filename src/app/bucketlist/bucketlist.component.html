@@ -34,9 +34,9 @@
     </modal>
     <div class="container">
         <div class="row">
-            <md-card #bucketselect class="col-md-3 card" *ngFor=" let bucket of bucketlist?.results | searchFilter:bucketsearch.value | paginate: { itemsPerPage: 4, currentPage: page } let s = index " [class.selected]="bucket===selectedBucket " (click)="onSelect(bucket,s)">
+            <md-card class="col-md-3 card" *ngFor=" let bucket of bucketlist?.results | searchFilter:bucketsearch.value | paginate: { itemsPerPage: 4, currentPage: page } let s = index " [class.selected]="bucket===selectedBucket " (click)="onSelect(bucket,s)">
                 <div class="front face">
-                    <md-card-title id="edbucket"> {{bucket.list_name}}
+                    <md-card-title > {{bucket.list_name}}
                         <div class="fixed-action-btn">
                             <a id="btn-main" class="btn-primary btn-floating btn-large green" (click)="editModal.open()"><i class="material-icons">mode_edit</i></a>
                         </div>
@@ -86,7 +86,7 @@
                                     <h4>Go ahead and create the 1st item</h4>
                                 </div>
                             </div>
-                            <input #labelitem class="form-control" id="item" [disabled]="nobuckets" #item (keyup.enter)="addItem(item.value,item)" type="text " placeholder="Add a bucket Item" autofocus><span md-suffix><i (click)="addItem(item.value,item)" style="color: black;cursor: pointer;" class="material-icons">add</i></span>
+                            <input class="form-control" id="item" [disabled]="nobuckets" #item (keyup.enter)="addItem(item.value,item)" type="text " placeholder="Add a bucket Item" autofocus><span md-suffix><i (click)="addItem(item.value,item)" style="color: black;cursor: pointer;" class="material-icons">add</i></span>
                         </li>
                     </ul>
                     <div class="tab-content">

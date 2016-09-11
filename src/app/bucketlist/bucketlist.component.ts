@@ -195,6 +195,7 @@ export class BucketlistComponent implements OnInit {
 
   }
 
+
   // Executed when an error occurs on Api call
   logError(err: any) {
     console.log(err);
@@ -300,12 +301,16 @@ export class BucketlistComponent implements OnInit {
     this.selectdeleteItem = selectdeleteItem
   }
 
-  onDeleteBucket() {
-    this.fetchbuckets();
+
+   onDeleteBucket() {
+    this.bucketService.getBucketLists().subscribe(
+      data => this.onDeleteComplete(data),
+      err => this.logError(err),
+      () => console.log('Complete')
+    );
   }
   // Calls service to delete bucketlist
   deleteBucketList() {
-    console.log("Start delete")
     this.bucketService.deleteBucket(this.selectedBucket.id).subscribe(
       data => this.onDeleteBucket(),
       err => this.logError(err),
@@ -315,8 +320,6 @@ export class BucketlistComponent implements OnInit {
 
   // Calls service to update bucketitem
   updateItem(item: BucketItem, done: boolean) {
-    console.log('update', item)
-    console.log(item.item_name)
     this.bucketService.updateItem(item.item_name, this.selectedBucket.id, item.id, done).subscribe(
       data => this.onUpdateComplete(data),
       err => this.logError(err),
@@ -364,8 +367,6 @@ export class BucketlistComponent implements OnInit {
 
     // Toggles between completed and uncompleted items
   toggle(bucketitem: BucketItem) {
-    console.log('bitem')
-    console.log(bucketitem)
     bucketitem.done = !bucketitem.done;
     this.updateItem(bucketitem, bucketitem.done);
   }
@@ -388,12 +389,11 @@ export class BucketlistComponent implements OnInit {
 
 
   onDeleteComplete(data: any) {
-    console.log(data);
     this.bucketlist = data;
     var num = Object.keys(data).length;
     if (num > 0) {
       this.nobuckets = false;
-      this.selectedBucket = this.bucketlist[this.index - 1];
+      this.selectedBucket = data.results[this.index - 1];
       this.itemcount = Object.keys(this.selectedBucket.items).length;
       if (this.itemcount > 0) {
         this.noitems = false;
